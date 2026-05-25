@@ -6,27 +6,24 @@
     <meta name="description" content="SMGray builds focused applications including GovRet, DashDork, and Cat Litter Nag.">
     <meta name="author" content="SMGray">
     <title>SMGray Software</title>
-    <link rel="icon" href="img/smgray.ico">
+    <link rel="icon" type="image/png" href="img/smgray-favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap" rel="stylesheet">
     <style>
         :root {
             color-scheme: light;
-            --ink: #131513;
-            --muted: #63645e;
+            --ink: #121411;
+            --muted: #62645e;
             --paper: #f8f4ea;
             --paper-2: #fffdf6;
-            --line: rgba(19, 21, 19, 0.12);
-            --line-strong: rgba(19, 21, 19, 0.2);
-            --mint: #18c7a2;
+            --line: rgba(18, 20, 17, 0.12);
+            --line-strong: rgba(18, 20, 17, 0.2);
             --teal: #0b827e;
-            --amber: #ffbf1f;
             --clay: #d95d2a;
             --blue: #5a77e5;
-            --shadow: 0 22px 70px rgba(20, 20, 16, 0.16);
-            --radius: 8px;
-            --max: 1180px;
+            --shadow: 0 18px 54px rgba(18, 20, 17, 0.12);
+            --max: 1120px;
         }
 
         * {
@@ -42,8 +39,8 @@
             color: var(--ink);
             font-family: "Manrope", sans-serif;
             background:
-                linear-gradient(rgba(19, 21, 19, 0.045) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(19, 21, 19, 0.045) 1px, transparent 1px),
+                linear-gradient(rgba(18, 20, 17, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(18, 20, 17, 0.04) 1px, transparent 1px),
                 var(--paper);
             background-size: 48px 48px;
         }
@@ -55,9 +52,9 @@
             z-index: -1;
             pointer-events: none;
             background:
-                linear-gradient(115deg, rgba(24, 199, 162, 0.16), transparent 36%),
-                linear-gradient(245deg, rgba(255, 191, 31, 0.18), transparent 40%),
-                linear-gradient(180deg, transparent 0%, rgba(255, 253, 246, 0.82) 54%, rgba(255, 253, 246, 0.92) 100%);
+                linear-gradient(115deg, rgba(24, 199, 162, 0.15), transparent 34%),
+                linear-gradient(245deg, rgba(255, 191, 31, 0.14), transparent 42%),
+                linear-gradient(180deg, transparent 0%, rgba(255, 253, 246, 0.78) 58%, rgba(255, 253, 246, 0.92) 100%);
         }
 
         a {
@@ -71,129 +68,71 @@
         }
 
         .site-header {
-            position: sticky;
-            top: 0;
-            z-index: 20;
-            border-bottom: 1px solid rgba(19, 21, 19, 0.08);
-            background: rgba(248, 244, 234, 0.78);
-            backdrop-filter: blur(18px);
+            background: transparent;
+        }
+
+        .nav,
+        .hero,
+        .apps,
+        .contact,
+        .footer-inner {
+            width: min(var(--max), calc(100% - 40px));
+            margin: 0 auto;
         }
 
         .nav {
-            width: min(var(--max), calc(100% - 40px));
-            min-height: 74px;
-            margin: 0 auto;
+            min-height: 70px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 24px;
+            gap: 18px;
         }
 
         .brand {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            font-weight: 800;
-            letter-spacing: 0;
+            height: 46px;
         }
 
-        .brand-mark {
-            width: 34px;
-            height: 34px;
-            display: grid;
-            place-items: center;
-            border: 1px solid var(--line-strong);
-            border-radius: 50%;
-            background: var(--ink);
-            color: var(--paper);
-            font-size: 13px;
+        .brand-logo {
+            width: clamp(160px, 18vw, 206px);
+            height: auto;
         }
 
-        .nav-links {
+        .nav-actions {
             display: flex;
             align-items: center;
-            gap: 8px;
-            padding: 5px;
-            border: 1px solid var(--line);
-            border-radius: 999px;
-            background: rgba(255, 253, 246, 0.72);
-            box-shadow: 0 10px 30px rgba(19, 21, 19, 0.06);
+            gap: 10px;
         }
 
-        .nav-links a {
-            padding: 10px 15px;
-            border-radius: 999px;
-            color: var(--muted);
-            font-size: 14px;
-            font-weight: 700;
-            transition: background 160ms ease, color 160ms ease;
-        }
-
-        .nav-links a:hover {
-            background: rgba(19, 21, 19, 0.08);
-            color: var(--ink);
-        }
-
-        .nav-cta {
+        .nav-actions a {
+            min-height: 42px;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            padding: 11px 17px;
-            border: 1px solid var(--ink);
+            justify-content: center;
+            padding: 0 16px;
+            border: 1px solid var(--line);
             border-radius: 999px;
-            background: var(--ink);
-            color: var(--paper-2);
+            background: rgba(255, 253, 246, 0.74);
+            color: var(--muted);
             font-size: 14px;
             font-weight: 800;
-            box-shadow: 0 14px 30px rgba(19, 21, 19, 0.18);
         }
 
-        .nav-cta span {
-            font-size: 16px;
-            line-height: 1;
+        .nav-actions a.primary {
+            border-color: var(--ink);
+            background: var(--ink);
+            color: var(--paper-2);
+            box-shadow: 0 12px 26px rgba(18, 20, 17, 0.16);
         }
 
         main {
-            overflow: hidden;
+            overflow-x: clip;
         }
 
         .hero {
-            width: min(var(--max), calc(100% - 40px));
-            min-height: calc(100svh - 74px);
-            margin: 0 auto;
-            padding: 72px 0 84px;
-            display: grid;
-            align-items: center;
-            gap: 44px;
-        }
-
-        .eyebrow {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            width: fit-content;
-            padding: 7px 10px 7px 8px;
-            border: 1px solid var(--line);
-            border-radius: 999px;
-            background: rgba(255, 253, 246, 0.78);
-            color: var(--muted);
-            font-size: 13px;
-            font-weight: 800;
-            box-shadow: 0 10px 30px rgba(19, 21, 19, 0.06);
-        }
-
-        .pulse {
-            width: 9px;
-            height: 9px;
-            border-radius: 999px;
-            background: var(--mint);
-            box-shadow: 0 0 0 6px rgba(24, 199, 162, 0.13);
-        }
-
-        .hero-copy {
-            max-width: 900px;
-            margin: 0 auto;
-            text-align: center;
+            padding: 78px 0 42px;
+            max-width: 860px;
         }
 
         h1,
@@ -204,567 +143,375 @@
         }
 
         h1 {
-            margin: 22px 0 22px;
+            max-width: 820px;
+            margin-bottom: 20px;
             font-family: "Newsreader", serif;
-            font-size: clamp(52px, 8vw, 112px);
-            line-height: 0.94;
+            font-size: clamp(48px, 7vw, 92px);
+            line-height: 0.95;
             font-weight: 600;
             letter-spacing: 0;
         }
 
-        .hero-copy p {
-            max-width: 720px;
-            margin: 0 auto;
+        .hero p {
+            max-width: 660px;
+            margin-bottom: 26px;
             color: var(--muted);
             font-size: clamp(18px, 2vw, 22px);
-            line-height: 1.6;
+            line-height: 1.58;
         }
 
         .hero-actions {
             display: flex;
-            justify-content: center;
             flex-wrap: wrap;
-            gap: 12px;
-            margin-top: 32px;
+            gap: 10px;
         }
 
         .button {
+            min-height: 46px;
             display: inline-flex;
             align-items: center;
-            justify-content: center;
-            gap: 10px;
-            min-height: 48px;
-            padding: 0 20px;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 0 16px;
             border: 1px solid var(--line-strong);
             border-radius: 999px;
             background: var(--paper-2);
             color: var(--ink);
             font-weight: 800;
-            box-shadow: 0 12px 28px rgba(19, 21, 19, 0.08);
             transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
         }
 
-        .button:hover {
+        .button:hover,
+        .app-card:hover {
             transform: translateY(-2px);
-            box-shadow: 0 18px 38px rgba(19, 21, 19, 0.12);
         }
 
         .button.primary {
             border-color: var(--ink);
             background: var(--ink);
             color: var(--paper-2);
+            box-shadow: 0 12px 26px rgba(18, 20, 17, 0.16);
         }
 
-        .arrow {
-            font-size: 18px;
-            line-height: 1;
+        .apps {
+            padding: 42px 0 72px;
+            scroll-margin-top: 20px;
         }
 
-        .hero-board {
-            position: relative;
-            border: 1px solid rgba(255, 253, 246, 0.22);
-            border-radius: 26px;
-            background:
-                linear-gradient(145deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.03)),
-                #171916;
-            color: var(--paper-2);
-            box-shadow: var(--shadow);
-            overflow: hidden;
-        }
-
-        .hero-board::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background:
-                linear-gradient(rgba(255, 253, 246, 0.06) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 253, 246, 0.06) 1px, transparent 1px);
-            background-size: 36px 36px;
-            mask-image: linear-gradient(to bottom, black, transparent 92%);
-            pointer-events: none;
-        }
-
-        .board-top {
-            position: relative;
+        .section-heading {
             display: flex;
-            align-items: center;
+            align-items: end;
             justify-content: space-between;
-            gap: 20px;
-            padding: 18px 20px;
-            border-bottom: 1px solid rgba(255, 253, 246, 0.11);
+            gap: 24px;
+            margin-bottom: 18px;
         }
 
-        .board-heading {
-            display: inline-flex;
-            align-items: center;
+        .section-heading h2 {
+            margin-bottom: 0;
+            font-family: "Newsreader", serif;
+            font-size: clamp(34px, 5vw, 58px);
+            line-height: 1;
+            font-weight: 600;
+            letter-spacing: 0;
         }
 
-        .board-label {
-            color: rgba(255, 253, 246, 0.64);
-            font-size: 13px;
-            font-weight: 800;
-        }
-
-        .board-actions {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: flex-end;
-            gap: 8px;
-        }
-
-        .board-actions a,
-        .mini-open,
-        .window-link-label {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 34px;
-            padding: 0 12px;
-            border: 1px solid rgba(255, 253, 246, 0.18);
-            border-radius: 999px;
-            color: var(--paper-2);
-            background: rgba(255, 253, 246, 0.08);
-            font-size: 12px;
-            font-weight: 900;
-            transition: background 160ms ease, transform 160ms ease;
-        }
-
-        .board-actions a:hover,
-        .mini-card:hover .mini-open,
-        .product-window:hover .window-link-label {
-            background: rgba(255, 253, 246, 0.18);
-            transform: translateY(-1px);
-        }
-
-        .board-grid {
-            position: relative;
-            display: grid;
-            grid-template-columns: 1.15fr 0.85fr;
-            gap: 18px;
-            padding: 18px;
-        }
-
-        .product-window {
-            position: relative;
-            min-height: 360px;
-            border: 1px solid rgba(255, 253, 246, 0.12);
-            border-radius: 18px;
-            background: #fffdf6;
-            color: var(--ink);
-            overflow: hidden;
-            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.28);
-        }
-
-        .product-window img {
-            width: 100%;
-            height: 100%;
-            min-height: 360px;
-            object-fit: cover;
-            object-position: top center;
-        }
-
-        .window-link-label {
-            position: absolute;
-            right: 18px;
-            bottom: 18px;
-            border-color: rgba(19, 21, 19, 0.18);
-            background: var(--ink);
-            box-shadow: 0 12px 26px rgba(19, 21, 19, 0.22);
-        }
-
-        .mini-stack {
-            display: grid;
-            gap: 18px;
-        }
-
-        .mini-card {
-            min-height: 171px;
-            padding: 18px;
-            border: 1px solid rgba(255, 253, 246, 0.13);
-            border-radius: 18px;
-            background: rgba(255, 253, 246, 0.08);
-            backdrop-filter: blur(10px);
-        }
-
-        .mini-card:hover {
-            border-color: rgba(255, 253, 246, 0.24);
-        }
-
-        .mini-card h3 {
-            margin-bottom: 8px;
-            font-size: 20px;
-        }
-
-        .mini-card p {
-            margin-bottom: 16px;
-            color: rgba(255, 253, 246, 0.72);
-            line-height: 1.6;
-        }
-
-        .mini-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 7px;
-        }
-
-        .mini-tags span {
-            padding: 6px 9px;
-            border: 1px solid rgba(255, 253, 246, 0.14);
-            border-radius: 999px;
-            color: rgba(255, 253, 246, 0.72);
-            font-size: 12px;
-            font-weight: 800;
-        }
-
-        .phone-card {
-            display: grid;
-            grid-template-columns: 104px 1fr;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .litter-icon-wrap {
-            width: 104px;
-            aspect-ratio: 1;
-            padding: 8px;
-            border: 1px solid rgba(255, 253, 246, 0.22);
-            border-radius: 26px;
-            background: rgba(255, 253, 246, 0.94);
-            box-shadow: 0 18px 34px rgba(0, 0, 0, 0.25);
-        }
-
-        .litter-icon-wrap img {
-            width: 100%;
-            height: 100%;
-            border-radius: 20px;
-            object-fit: cover;
+        .section-heading p {
+            max-width: 440px;
+            margin-bottom: 0;
+            color: var(--muted);
+            line-height: 1.65;
         }
 
         .app-grid {
-            width: min(var(--max), calc(100% - 40px));
-            margin: 0 auto;
-            padding: 34px 0 96px;
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 18px;
         }
 
         .app-card {
-            min-height: 360px;
+            min-height: 430px;
             display: grid;
-            align-content: space-between;
-            gap: 24px;
-            padding: 22px;
+            grid-template-rows: auto 1fr auto;
+            overflow: hidden;
             border: 1px solid var(--line);
-            border-radius: var(--radius);
-            background: rgba(255, 253, 246, 0.82);
-            box-shadow: 0 16px 46px rgba(19, 21, 19, 0.08);
+            border-radius: 14px;
+            background: rgba(255, 253, 246, 0.86);
+            box-shadow: 0 16px 46px rgba(18, 20, 17, 0.08);
             transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
         }
 
         .app-card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(19, 21, 19, 0.24);
-            box-shadow: 0 24px 60px rgba(19, 21, 19, 0.13);
+            border-color: var(--line-strong);
+            box-shadow: 0 24px 58px rgba(18, 20, 17, 0.13);
         }
 
-        .app-card-top {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            gap: 18px;
-        }
-
-        .app-number {
-            color: var(--muted);
-            font-weight: 800;
-            font-size: 13px;
-        }
-
-        .app-icon {
-            width: 44px;
-            height: 44px;
-            display: grid;
-            place-items: center;
-            border-radius: 50%;
-            color: var(--paper-2);
-            font-size: 18px;
-            font-weight: 900;
-        }
-
-        .govret .app-icon {
-            background: var(--teal);
-        }
-
-        .dashdork .app-icon {
-            background: var(--clay);
-        }
-
-        .litter .app-icon {
-            background: var(--blue);
-        }
-
-        .app-icon.image-icon {
-            width: 58px;
-            height: 58px;
-            padding: 4px;
-            border-radius: 18px;
+        .app-media {
+            height: 180px;
+            border-bottom: 1px solid var(--line);
             background: #fffdf6;
-            box-shadow: 0 14px 28px rgba(19, 21, 19, 0.14);
             overflow: hidden;
         }
 
-        .app-icon.image-icon img {
+        .app-media img {
             width: 100%;
             height: 100%;
-            border-radius: 14px;
+            object-fit: cover;
+            object-position: top center;
+        }
+
+        .litter-media {
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 10px;
+            padding: 16px 14px 0;
+            background:
+                linear-gradient(rgba(18, 20, 17, 0.045) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(18, 20, 17, 0.045) 1px, transparent 1px),
+                #fff7a8;
+            background-size: 28px 28px;
+        }
+
+        .litter-media .screenshot {
+            width: min(30%, 96px);
+            height: 164px;
+            border: 2px solid var(--ink);
+            border-bottom: 0;
+            border-radius: 16px 16px 0 0;
+            object-fit: cover;
+            object-position: top center;
+            box-shadow: 0 16px 30px rgba(18, 20, 17, 0.16);
+        }
+
+        .litter-badge {
+            position: absolute;
+            top: 14px;
+            right: 16px;
+            width: 54px;
+            height: 54px;
+            padding: 4px;
+            border-radius: 16px;
+            background: var(--paper-2);
+            box-shadow: 0 12px 24px rgba(18, 20, 17, 0.14);
+        }
+
+        .litter-badge img {
+            width: 100%;
+            height: 100%;
+            border-radius: 12px;
             object-fit: cover;
         }
 
-        .app-card h2 {
+        .app-body {
+            padding: 22px;
+        }
+
+        .app-kicker {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 18px;
+            color: var(--muted);
+            font-size: 13px;
+            font-weight: 900;
+        }
+
+        .app-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .govret .app-dot {
+            background: var(--teal);
+        }
+
+        .dashdork .app-dot {
+            background: var(--clay);
+        }
+
+        .litter .app-dot {
+            background: var(--blue);
+        }
+
+        .app-card h3 {
             margin-bottom: 10px;
             font-size: 28px;
             letter-spacing: 0;
         }
 
         .app-card p {
+            margin-bottom: 18px;
             color: var(--muted);
             font-size: 15px;
             line-height: 1.65;
         }
 
-        .app-meta {
+        .tags {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
-            margin-top: 20px;
         }
 
-        .app-meta span {
+        .tags span {
             padding: 7px 9px;
             border: 1px solid var(--line);
             border-radius: 999px;
+            background: rgba(255, 255, 255, 0.5);
             color: var(--muted);
-            background: rgba(255, 255, 255, 0.46);
             font-size: 12px;
             font-weight: 800;
         }
 
         .app-link {
-            display: inline-flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-            padding-top: 18px;
-            border-top: 1px solid var(--line);
-            font-size: 15px;
-            font-weight: 900;
-        }
-
-        .showcase {
-            border-top: 1px solid var(--line);
-            border-bottom: 1px solid var(--line);
-            background: rgba(255, 253, 246, 0.76);
-        }
-
-        .showcase-inner {
-            width: min(var(--max), calc(100% - 40px));
-            margin: 0 auto;
-            padding: 96px 0;
-            display: grid;
-            grid-template-columns: 0.86fr 1.14fr;
-            gap: 56px;
-            align-items: start;
-        }
-
-        .section-kicker {
-            margin-bottom: 14px;
-            color: var(--teal);
-            font-size: 13px;
-            font-weight: 900;
-            text-transform: uppercase;
-        }
-
-        .section-title {
-            margin-bottom: 18px;
-            font-family: "Newsreader", serif;
-            font-size: clamp(38px, 5vw, 68px);
-            line-height: 1;
-            font-weight: 600;
-            letter-spacing: 0;
-        }
-
-        .section-copy {
-            color: var(--muted);
-            font-size: 18px;
-            line-height: 1.7;
-        }
-
-        .principles {
-            display: grid;
-            gap: 12px;
-            margin-top: 30px;
-        }
-
-        .principle {
-            display: grid;
-            grid-template-columns: 34px 1fr;
-            gap: 14px;
-            align-items: start;
-            padding: 14px 0;
-            border-top: 1px solid var(--line);
-        }
-
-        .principle strong {
-            display: block;
-            margin-bottom: 3px;
-            font-size: 16px;
-        }
-
-        .principle p {
-            margin-bottom: 0;
-            color: var(--muted);
-            line-height: 1.55;
-        }
-
-        .principle-index {
-            display: grid;
-            place-items: center;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            background: var(--ink);
-            color: var(--paper-2);
-            font-size: 12px;
-            font-weight: 900;
-        }
-
-        .screens {
-            display: grid;
-            gap: 18px;
-        }
-
-        .screen-shot {
-            padding: 12px;
-            border: 1px solid var(--line);
-            border-radius: 18px;
-            background: var(--paper-2);
-            box-shadow: 0 18px 54px rgba(19, 21, 19, 0.12);
-        }
-
-        .screen-shot img {
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            border-radius: 10px;
-            object-fit: cover;
-            object-position: top center;
-            border: 1px solid rgba(19, 21, 19, 0.1);
-        }
-
-        .screen-caption {
+            min-height: 58px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 20px;
-            padding: 12px 4px 2px;
-            color: var(--muted);
-            font-size: 13px;
-            font-weight: 800;
+            gap: 12px;
+            padding: 0 22px;
+            border-top: 1px solid var(--line);
+            font-weight: 900;
         }
 
-        .cta {
-            width: min(var(--max), calc(100% - 40px));
+        .contact {
+            padding: 0 0 44px;
+            scroll-margin-top: 20px;
+        }
+
+        .contact-box {
+            max-width: 720px;
             margin: 0 auto;
-            padding: 96px 0;
-        }
-
-        .cta-box {
             display: grid;
-            grid-template-columns: 1fr auto;
-            gap: 30px;
-            align-items: end;
-            padding: 34px;
+            gap: 10px;
+            padding: 16px;
             border: 1px solid rgba(255, 253, 246, 0.18);
-            border-radius: 24px;
+            border-radius: 14px;
             background:
-                linear-gradient(135deg, rgba(24, 199, 162, 0.24), transparent 42%),
-                linear-gradient(220deg, rgba(255, 191, 31, 0.24), transparent 44%),
+                linear-gradient(135deg, rgba(24, 199, 162, 0.23), transparent 44%),
+                linear-gradient(230deg, rgba(255, 191, 31, 0.18), transparent 40%),
                 #161815;
             color: var(--paper-2);
             box-shadow: var(--shadow);
         }
 
-        .cta h2 {
-            max-width: 780px;
-            margin-bottom: 12px;
+        .contact-box h2 {
+            margin-bottom: 0;
             font-family: "Newsreader", serif;
-            font-size: clamp(38px, 5.5vw, 72px);
-            line-height: 1;
+            font-size: clamp(24px, 3vw, 30px);
+            line-height: 1.04;
             font-weight: 600;
             letter-spacing: 0;
         }
 
-        .cta p {
-            max-width: 660px;
-            margin-bottom: 0;
-            color: rgba(255, 253, 246, 0.72);
-            font-size: 18px;
-            line-height: 1.65;
+        .contact-form {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 7px 8px;
         }
 
-        .cta .button {
-            border-color: rgba(255, 253, 246, 0.28);
+        .form-field {
+            display: grid;
+            gap: 5px;
+        }
+
+        .form-field label {
+            color: rgba(255, 253, 246, 0.72);
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .form-field input,
+        .form-field textarea {
+            width: 100%;
+            border: 1px solid rgba(255, 253, 246, 0.22);
+            border-radius: 12px;
+            background: rgba(255, 253, 246, 0.08);
+            color: var(--paper-2);
+            font: inherit;
+            outline: none;
+        }
+
+        .form-field input {
+            min-height: 36px;
+            padding: 0 11px;
+        }
+
+        .form-field textarea {
+            min-height: 66px;
+            padding: 9px 11px;
+            resize: vertical;
+        }
+
+        .form-field input:focus,
+        .form-field textarea:focus {
+            border-color: rgba(255, 253, 246, 0.56);
+            box-shadow: 0 0 0 3px rgba(255, 253, 246, 0.1);
+        }
+
+        .form-field input::placeholder,
+        .form-field textarea::placeholder {
+            color: rgba(255, 253, 246, 0.42);
+        }
+
+        .form-honeypot {
+            grid-column: 1 / -1;
+            position: absolute;
+            left: -9999px;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+
+        .form-submit {
+            grid-column: 1 / -1;
+            min-height: 38px;
+            border: 1px solid rgba(255, 253, 246, 0.28);
+            border-radius: 999px;
             background: var(--paper-2);
             color: var(--ink);
-            white-space: nowrap;
+            cursor: pointer;
+            font: inherit;
+            font-weight: 900;
+        }
+
+        .form-status {
+            grid-column: 1 / -1;
+            min-height: 16px;
+            margin: 0;
+            color: rgba(255, 253, 246, 0.72);
+            font-size: 12px;
+        }
+
+        .message-field {
+            grid-column: 1 / -1;
         }
 
         footer {
             border-top: 1px solid var(--line);
-            background: rgba(255, 253, 246, 0.9);
+            background: transparent;
         }
 
         .footer-inner {
-            width: min(var(--max), calc(100% - 40px));
-            margin: 0 auto;
-            padding: 32px 0;
+            min-height: 70px;
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: flex-start;
             gap: 20px;
             color: var(--muted);
             font-size: 14px;
         }
 
-        .footer-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 14px;
-            font-weight: 800;
-        }
-
-        .footer-links a:hover {
-            color: var(--ink);
-        }
-
-        @media (max-width: 980px) {
-            .nav {
-                min-height: 66px;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
+        @media (max-width: 940px) {
             .hero {
-                min-height: auto;
                 padding-top: 54px;
             }
 
-            .board-grid,
-            .showcase-inner,
-            .cta-box {
-                grid-template-columns: 1fr;
+            .section-heading {
+                align-items: flex-start;
+                flex-direction: column;
             }
 
             .app-grid {
@@ -774,118 +521,94 @@
             .app-card {
                 min-height: auto;
             }
+
+            .contact-box {
+                grid-template-columns: 1fr;
+                gap: 14px;
+            }
         }
 
-        @media (max-width: 680px) {
+        @media (max-width: 620px) {
             .nav,
             .hero,
-            .app-grid,
-            .showcase-inner,
-            .cta,
+            .apps,
+            .contact,
             .footer-inner {
                 width: min(100% - 28px, var(--max));
             }
 
-            .nav-cta {
-                padding-inline: 13px;
+            .nav {
+                min-height: 66px;
+            }
+
+            .brand-logo {
+                width: 158px;
+            }
+
+            .nav-actions a:not(.primary) {
+                display: none;
             }
 
             .hero {
-                padding-top: 38px;
-                padding-bottom: 58px;
+                padding-top: 40px;
             }
 
             h1 {
-                font-size: clamp(44px, 16vw, 64px);
+                font-size: clamp(42px, 14vw, 62px);
             }
 
-            .hero-copy {
-                text-align: left;
+            .hero p {
+                font-size: 17px;
             }
 
-            .hero-actions {
-                justify-content: flex-start;
+            .contact-box {
+                padding: 18px;
+                border-radius: 14px;
             }
 
-            .button {
-                width: 100%;
-            }
-
-            .board-top {
-                align-items: flex-start;
-                flex-direction: column;
-            }
-
-            .board-heading {
-                align-items: flex-start;
-            }
-
-            .board-actions {
-                justify-content: flex-start;
-            }
-
-            .board-grid {
-                padding: 12px;
-            }
-
-            .product-window,
-            .product-window img {
-                min-height: 260px;
-            }
-
-            .phone-card {
+            .contact-form {
                 grid-template-columns: 1fr;
             }
 
-            .app-grid {
-                padding-bottom: 66px;
+            .app-media {
+                height: 160px;
             }
 
-            .showcase-inner,
-            .cta {
-                padding: 66px 0;
-            }
-
-            .cta-box {
-                padding: 24px;
-                border-radius: 18px;
+            .litter-media .screenshot {
+                height: 146px;
             }
 
             .footer-inner {
                 align-items: flex-start;
+                justify-content: center;
                 flex-direction: column;
+                padding: 22px 0;
             }
         }
 
         @media (prefers-reduced-motion: no-preference) {
-            .hero-copy,
-            .hero-board,
+            .hero,
             .app-card,
-            .showcase-inner,
-            .cta-box {
-                animation: rise 700ms ease both;
-            }
-
-            .hero-board {
-                animation-delay: 90ms;
+            .contact-box {
+                animation: rise 560ms ease both;
             }
 
             .app-card:nth-child(1) {
-                animation-delay: 120ms;
+                animation-delay: 80ms;
             }
 
             .app-card:nth-child(2) {
-                animation-delay: 190ms;
+                animation-delay: 140ms;
             }
 
             .app-card:nth-child(3) {
-                animation-delay: 260ms;
+                animation-delay: 200ms;
             }
 
             @keyframes rise {
                 from {
                     opacity: 0;
-                    transform: translateY(18px);
+                    transform: translateY(14px);
                 }
                 to {
                     opacity: 1;
@@ -899,173 +622,110 @@
     <header class="site-header">
         <nav class="nav" aria-label="Main navigation">
             <a class="brand" href="#top" aria-label="SMGray home">
-                <span class="brand-mark">SM</span>
-                <span>SMGray Software</span>
+                <img class="brand-logo" src="img/smgray-logo.png" alt="SMGray">
             </a>
-            <div class="nav-links" aria-label="Page sections">
+            <div class="nav-actions">
                 <a href="#apps">Apps</a>
-                <a href="#approach">Approach</a>
-                <a href="#contact">Contact</a>
+                <a class="primary" href="#contact">Contact</a>
             </div>
-            <a class="nav-cta" href="#apps">View work <span aria-hidden="true">-&gt;</span></a>
         </nav>
     </header>
 
     <main id="top">
         <section class="hero" aria-labelledby="hero-title">
-            <div class="hero-copy">
-                <div class="eyebrow"><span class="pulse" aria-hidden="true"></span> Three products, one builder-led studio</div>
-                <h1 id="hero-title">Independent software for very different problems.</h1>
-                <p>SMGray builds focused applications across federal retirement planning, personal dashboards, and practical Android reminders.</p>
-                <div class="hero-actions" aria-label="Primary actions">
-                    <a class="button primary" href="#apps">Explore the apps <span class="arrow" aria-hidden="true">-&gt;</span></a>
-                    <a class="button contact-action" href="#contact" data-contact-action>Email SMGray</a>
-                </div>
+            <h1 id="hero-title">Focused apps for practical problems.</h1>
+            <p>SMGray is an independent studio building small, useful products across retirement planning, personal dashboards, and Android reminders.</p>
+            <div class="hero-actions">
+                <a class="button primary" href="#apps">View applications <span aria-hidden="true">-&gt;</span></a>
+                <a class="button" href="#contact">Contact SMGray</a>
+            </div>
+        </section>
+
+        <section id="apps" class="apps" aria-labelledby="apps-title">
+            <div class="section-heading">
+                <h2 id="apps-title">Applications</h2>
+                <p>One simple directory of the products from SMGray.</p>
             </div>
 
-            <div class="hero-board" aria-label="SMGray product overview">
-                <div class="board-top">
-                    <div class="board-heading">
-                        <div class="board-label">Live applications from SMGray</div>
-                    </div>
-                    <div class="board-actions" aria-label="Product quick links">
-                        <a href="https://govret.com/" target="_blank" rel="noopener">GovRet</a>
-                        <a href="https://dashdork.com/" target="_blank" rel="noopener">DashDork</a>
-                        <a href="https://play.google.com/store/apps/details?id=com.smgray.catlitternag" target="_blank" rel="noopener">Cat Litter Nag</a>
-                    </div>
-                </div>
-                <div class="board-grid">
-                    <a class="product-window" href="https://govret.com/" target="_blank" rel="noopener" aria-label="Visit GovRet">
+            <div class="app-grid">
+                <article class="app-card govret">
+                    <a class="app-media" href="https://govret.com/" target="_blank" rel="noopener" aria-label="Visit GovRet">
                         <img src="img/products/govret.png" alt="GovRet retirement planning dashboard screenshot">
-                        <span class="window-link-label">Open GovRet -&gt;</span>
                     </a>
-                    <div class="mini-stack">
-                        <a class="mini-card" href="https://dashdork.com/" target="_blank" rel="noopener" aria-label="Visit DashDork">
-                            <h3>DashDork</h3>
-                            <p>A personal web dashboard for feeds, notes, weather, themes, and quick daily context.</p>
-                            <div class="mini-tags" aria-label="DashDork tags"><span>RSS</span><span>Widgets</span><span>Themes</span></div>
-                            <span class="mini-open">Open DashDork -&gt;</span>
-                        </a>
-                        <a class="mini-card phone-card" href="https://play.google.com/store/apps/details?id=com.smgray.catlitternag" target="_blank" rel="noopener" aria-label="Open Cat Litter Nag on Google Play">
-                            <div class="litter-icon-wrap" aria-hidden="true">
-                                <img src="img/products/cat-litter-nag-icon.png" alt="">
-                            </div>
-                            <div>
-                                <h3>Cat Litter Nag</h3>
-                                <p>An Android reminder app for recurring litter-box care tasks.</p>
-                                <div class="mini-tags" aria-label="Cat Litter Nag tags"><span>Android</span><span>Reminders</span></div>
-                                <span class="mini-open">Open Google Play -&gt;</span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="apps" class="app-grid" aria-label="SMGray applications">
-            <article class="app-card govret">
-                <div>
-                    <div class="app-card-top">
-                        <span class="app-number">01</span>
-                        <span class="app-icon" aria-hidden="true">G</span>
-                    </div>
-                    <h2>GovRet</h2>
-                    <p>Federal retirement planning tools for FERS employees, with calculators, scenario planning, FEHB checks, survivor annuity estimates, and a step-by-step planning wizard.</p>
-                    <div class="app-meta" aria-label="GovRet details">
-                        <span>Federal employees</span>
-                        <span>Retirement planning</span>
-                        <span>Web app</span>
-                    </div>
-                </div>
-                <a class="app-link" href="https://govret.com/" target="_blank" rel="noopener">Visit govret.com <span aria-hidden="true">-&gt;</span></a>
-            </article>
-
-            <article class="app-card dashdork">
-                <div>
-                    <div class="app-card-top">
-                        <span class="app-number">02</span>
-                        <span class="app-icon" aria-hidden="true">D</span>
-                    </div>
-                    <h2>DashDork</h2>
-                    <p>A clean Netvibes-style personal dashboard that brings RSS feeds, notes, weather, widgets, layouts, and themes into one fast start page.</p>
-                    <div class="app-meta" aria-label="DashDork details">
-                        <span>Personal dashboard</span>
-                        <span>RSS and widgets</span>
-                        <span>Chrome extension</span>
-                    </div>
-                </div>
-                <a class="app-link" href="https://dashdork.com/" target="_blank" rel="noopener">Visit dashdork.com <span aria-hidden="true">-&gt;</span></a>
-            </article>
-
-            <article class="app-card litter">
-                <div>
-                    <div class="app-card-top">
-                        <span class="app-number">03</span>
-                        <span class="app-icon image-icon" aria-hidden="true"><img src="img/products/cat-litter-nag-icon.png" alt=""></span>
-                    </div>
-                    <h2>Cat Litter Nag</h2>
-                    <p>A simple Android utility for the small household job that is easy to forget and unpleasant to miss: keeping litter-box cleaning on schedule.</p>
-                    <div class="app-meta" aria-label="Cat Litter Nag details">
-                        <span>Android app</span>
-                        <span>Recurring reminders</span>
-                        <span>Household utility</span>
-                    </div>
-                </div>
-                <a class="app-link" href="https://play.google.com/store/apps/details?id=com.smgray.catlitternag" target="_blank" rel="noopener">Get on Google Play <span aria-hidden="true">-&gt;</span></a>
-            </article>
-        </section>
-
-        <section id="approach" class="showcase" aria-labelledby="approach-title">
-            <div class="showcase-inner">
-                <div>
-                    <div class="section-kicker">The common thread</div>
-                    <h2 id="approach-title" class="section-title">Narrow products with obvious value.</h2>
-                    <p class="section-copy">The domains do not need to match. The work does: ship practical software, make the first screen useful, and give each product its own voice.</p>
-                    <div class="principles" aria-label="SMGray principles">
-                        <div class="principle">
-                            <span class="principle-index">1</span>
-                            <div>
-                                <strong>Start with a real task</strong>
-                                <p>Each app is organized around what people are trying to do, not around a generic portfolio category.</p>
-                            </div>
-                        </div>
-                        <div class="principle">
-                            <span class="principle-index">2</span>
-                            <div>
-                                <strong>Keep the interface direct</strong>
-                                <p>Retirement planning, dashboards, and reminder utilities all benefit from clear next actions.</p>
-                            </div>
-                        </div>
-                        <div class="principle">
-                            <span class="principle-index">3</span>
-                            <div>
-                                <strong>Let the products stand apart</strong>
-                                <p>SMGray is the maker behind the work; each application is free to serve its own audience.</p>
-                            </div>
+                    <div class="app-body">
+                        <div class="app-kicker"><span>Web app</span><span class="app-dot" aria-hidden="true"></span></div>
+                        <h3>GovRet</h3>
+                        <p>Federal retirement planning tools for FERS employees, with calculators, scenario planning, and benefits guidance.</p>
+                        <div class="tags" aria-label="GovRet tags">
+                            <span>Federal employees</span>
+                            <span>Retirement planning</span>
                         </div>
                     </div>
-                </div>
-                <div class="screens" aria-label="Product screenshots">
-                    <a class="screen-shot" href="https://dashdork.com/" target="_blank" rel="noopener">
+                    <a class="app-link" href="https://govret.com/" target="_blank" rel="noopener">Visit govret.com <span aria-hidden="true">-&gt;</span></a>
+                </article>
+
+                <article class="app-card dashdork">
+                    <a class="app-media" href="https://dashdork.com/" target="_blank" rel="noopener" aria-label="Visit DashDork">
                         <img src="img/products/dashdork.png" alt="DashDork dashboard screenshot">
-                        <div class="screen-caption"><span>DashDork</span><span>Personal dashboard</span></div>
                     </a>
-                    <a class="screen-shot" href="https://govret.com/" target="_blank" rel="noopener">
-                        <img src="img/products/govret.png" alt="GovRet planning website screenshot">
-                        <div class="screen-caption"><span>GovRet</span><span>FERS planning tools</span></div>
+                    <div class="app-body">
+                        <div class="app-kicker"><span>Dashboard</span><span class="app-dot" aria-hidden="true"></span></div>
+                        <h3>DashDork</h3>
+                        <p>A personal dashboard that brings RSS feeds, notes, weather, widgets, layouts, and themes into one fast start page.</p>
+                        <div class="tags" aria-label="DashDork tags">
+                            <span>RSS and widgets</span>
+                            <span>Chrome extension</span>
+                        </div>
+                    </div>
+                    <a class="app-link" href="https://dashdork.com/" target="_blank" rel="noopener">Visit dashdork.com <span aria-hidden="true">-&gt;</span></a>
+                </article>
+
+                <article class="app-card litter">
+                    <a class="app-media litter-media" href="https://play.google.com/store/apps/details?id=com.smgray.catlitternag" target="_blank" rel="noopener" aria-label="Open Cat Litter Nag on Google Play">
+                        <img class="screenshot" src="img/products/cat-litter-nag-screenshot-1.png" alt="Cat Litter Nag schedule settings screenshot">
+                        <img class="screenshot" src="img/products/cat-litter-nag-screenshot-2.png" alt="Cat Litter Nag interval reminder screenshot">
+                        <img class="screenshot" src="img/products/cat-litter-nag-screenshot-3.png" alt="Cat Litter Nag active reminder screenshot">
+                        <span class="litter-badge" aria-hidden="true"><img src="img/products/cat-litter-nag-icon.png" alt=""></span>
                     </a>
-                </div>
+                    <div class="app-body">
+                        <div class="app-kicker"><span>Android app</span><span class="app-dot" aria-hidden="true"></span></div>
+                        <h3>Cat Litter Nag</h3>
+                        <p>A simple Android utility for keeping litter-box cleaning on schedule without having to remember it manually.</p>
+                        <div class="tags" aria-label="Cat Litter Nag tags">
+                            <span>Recurring reminders</span>
+                            <span>Household utility</span>
+                        </div>
+                    </div>
+                    <a class="app-link" href="https://play.google.com/store/apps/details?id=com.smgray.catlitternag" target="_blank" rel="noopener">Get on Google Play <span aria-hidden="true">-&gt;</span></a>
+                </article>
             </div>
         </section>
 
-        <section id="contact" class="cta" aria-labelledby="contact-title">
-            <div class="cta-box">
+        <section id="contact" class="contact" aria-labelledby="contact-title">
+            <div class="contact-box">
                 <div>
-                    <div class="section-kicker">Contact</div>
-                    <h2 id="contact-title">Building the next focused app.</h2>
-                    <p>Questions, partnerships, or product feedback can go straight to Shaun Gray.</p>
+                    <h2 id="contact-title">Questions or feedback?</h2>
                 </div>
-                <a class="button contact-action" href="#contact" data-contact-action>Email SMGray <span class="arrow" aria-hidden="true">-&gt;</span></a>
+                <form class="contact-form" action="/contact" method="post">
+                    <div class="form-field">
+                        <label for="contact-name">Name</label>
+                        <input id="contact-name" name="name" autocomplete="name" required minlength="2" placeholder="Your name">
+                    </div>
+                    <div class="form-field">
+                        <label for="contact-email">Email</label>
+                        <input id="contact-email" name="email" type="email" autocomplete="email" required placeholder="you@example.com">
+                    </div>
+                    <div class="form-field message-field">
+                        <label for="contact-message">Message</label>
+                        <textarea id="contact-message" name="message" required minlength="10" placeholder="What should SMGray know?"></textarea>
+                    </div>
+                    <div class="form-honeypot" aria-hidden="true">
+                        <label for="contact-company">Company</label>
+                        <input id="contact-company" name="company" tabindex="-1" autocomplete="off">
+                    </div>
+                    <button class="form-submit" type="submit">Send message</button>
+                    <p class="form-status" role="status" aria-live="polite"></p>
+                </form>
             </div>
         </section>
     </main>
@@ -1073,23 +733,37 @@
     <footer>
         <div class="footer-inner">
             <div>&copy; 2026 SMGray Software. All rights reserved.</div>
-            <div class="footer-links" aria-label="Footer product links">
-                <a href="https://govret.com/" target="_blank" rel="noopener">GovRet</a>
-                <a href="https://dashdork.com/" target="_blank" rel="noopener">DashDork</a>
-                <a href="https://play.google.com/store/apps/details?id=com.smgray.catlitternag" target="_blank" rel="noopener">Cat Litter Nag</a>
-            </div>
         </div>
     </footer>
+
     <script>
         (() => {
-            const contactCodes = [115, 109, 103, 114, 97, 121, 64, 103, 109, 97, 105, 108, 46, 99, 111, 109];
-            const contactAddress = () => String.fromCharCode(...contactCodes);
+            const form = document.querySelector(".contact-form");
+            const status = document.querySelector(".form-status");
 
-            document.querySelectorAll("[data-contact-action]").forEach((link) => {
-                link.addEventListener("click", (event) => {
-                    event.preventDefault();
-                    window.location.href = `mailto:${contactAddress()}`;
-                });
+            form.addEventListener("submit", async (event) => {
+                event.preventDefault();
+                status.textContent = "Sending...";
+
+                const submit = form.querySelector("button[type='submit']");
+                submit.disabled = true;
+
+                try {
+                    const response = await fetch(form.action, {
+                        method: "POST",
+                        headers: { "Accept": "application/json" },
+                        body: new FormData(form)
+                    });
+                    const data = await response.json();
+                    status.textContent = data.message || "Thanks. Your message was sent.";
+                    if (response.ok) {
+                        form.reset();
+                    }
+                } catch (error) {
+                    status.textContent = "Sorry, the message could not be sent right now.";
+                } finally {
+                    submit.disabled = false;
+                }
             });
         })();
     </script>
