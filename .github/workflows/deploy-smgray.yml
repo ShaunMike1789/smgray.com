@@ -1,0 +1,37 @@
+name: Deploy SMGray
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-smgray
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Deploy to CapRover
+        run: >
+          npx --yes caprover deploy
+          --caproverUrl "$CAPROVER_URL"
+          --caproverApp smgray
+          --appToken "$CAPROVER_APP_TOKEN"
+          --branch master
+        env:
+          CAPROVER_URL: ${{ secrets.CAPROVER_URL }}
+          CAPROVER_APP_TOKEN: ${{ secrets.CAPROVER_APP_TOKEN }}
