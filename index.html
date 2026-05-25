@@ -1,386 +1,1097 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="SMGray builds focused applications including GovRet, DashDork, and Cat Litter Nag.">
+    <meta name="author" content="SMGray">
+    <title>SMGray Software</title>
+    <link rel="icon" href="img/smgray.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            color-scheme: light;
+            --ink: #131513;
+            --muted: #63645e;
+            --paper: #f8f4ea;
+            --paper-2: #fffdf6;
+            --line: rgba(19, 21, 19, 0.12);
+            --line-strong: rgba(19, 21, 19, 0.2);
+            --mint: #18c7a2;
+            --teal: #0b827e;
+            --amber: #ffbf1f;
+            --clay: #d95d2a;
+            --blue: #5a77e5;
+            --shadow: 0 22px 70px rgba(20, 20, 16, 0.16);
+            --radius: 8px;
+            --max: 1180px;
+        }
 
-    <title>SMGray.com</title>
+        * {
+            box-sizing: border-box;
+        }
 
-    <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+        html {
+            scroll-behavior: smooth;
+        }
 
-    <!-- Theme CSS -->
-    <link href="css/freelancer.min.css" rel="stylesheet">
+        body {
+            margin: 0;
+            color: var(--ink);
+            font-family: "Manrope", sans-serif;
+            background:
+                linear-gradient(rgba(19, 21, 19, 0.045) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(19, 21, 19, 0.045) 1px, transparent 1px),
+                var(--paper);
+            background-size: 48px 48px;
+        }
 
-    <!-- Custom Fonts -->
-    <link href="css/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            background:
+                linear-gradient(115deg, rgba(24, 199, 162, 0.16), transparent 36%),
+                linear-gradient(245deg, rgba(255, 191, 31, 0.18), transparent 40%),
+                linear-gradient(180deg, transparent 0%, rgba(255, 253, 246, 0.82) 54%, rgba(255, 253, 246, 0.92) 100%);
+        }
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
 
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            border-bottom: 1px solid rgba(19, 21, 19, 0.08);
+            background: rgba(248, 244, 234, 0.78);
+            backdrop-filter: blur(18px);
+        }
+
+        .nav {
+            width: min(var(--max), calc(100% - 40px));
+            min-height: 74px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            letter-spacing: 0;
+        }
+
+        .brand-mark {
+            width: 34px;
+            height: 34px;
+            display: grid;
+            place-items: center;
+            border: 1px solid var(--line-strong);
+            border-radius: 50%;
+            background: var(--ink);
+            color: var(--paper);
+            font-size: 13px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 5px;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            background: rgba(255, 253, 246, 0.72);
+            box-shadow: 0 10px 30px rgba(19, 21, 19, 0.06);
+        }
+
+        .nav-links a {
+            padding: 10px 15px;
+            border-radius: 999px;
+            color: var(--muted);
+            font-size: 14px;
+            font-weight: 700;
+            transition: background 160ms ease, color 160ms ease;
+        }
+
+        .nav-links a:hover {
+            background: rgba(19, 21, 19, 0.08);
+            color: var(--ink);
+        }
+
+        .nav-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 11px 17px;
+            border: 1px solid var(--ink);
+            border-radius: 999px;
+            background: var(--ink);
+            color: var(--paper-2);
+            font-size: 14px;
+            font-weight: 800;
+            box-shadow: 0 14px 30px rgba(19, 21, 19, 0.18);
+        }
+
+        .nav-cta span {
+            font-size: 16px;
+            line-height: 1;
+        }
+
+        main {
+            overflow: hidden;
+        }
+
+        .hero {
+            width: min(var(--max), calc(100% - 40px));
+            min-height: calc(100svh - 74px);
+            margin: 0 auto;
+            padding: 72px 0 84px;
+            display: grid;
+            align-items: center;
+            gap: 44px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            width: fit-content;
+            padding: 7px 10px 7px 8px;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            background: rgba(255, 253, 246, 0.78);
+            color: var(--muted);
+            font-size: 13px;
+            font-weight: 800;
+            box-shadow: 0 10px 30px rgba(19, 21, 19, 0.06);
+        }
+
+        .pulse {
+            width: 9px;
+            height: 9px;
+            border-radius: 999px;
+            background: var(--mint);
+            box-shadow: 0 0 0 6px rgba(24, 199, 162, 0.13);
+        }
+
+        .hero-copy {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        h1,
+        h2,
+        h3,
+        p {
+            margin-top: 0;
+        }
+
+        h1 {
+            margin: 22px 0 22px;
+            font-family: "Newsreader", serif;
+            font-size: clamp(52px, 8vw, 112px);
+            line-height: 0.94;
+            font-weight: 600;
+            letter-spacing: 0;
+        }
+
+        .hero-copy p {
+            max-width: 720px;
+            margin: 0 auto;
+            color: var(--muted);
+            font-size: clamp(18px, 2vw, 22px);
+            line-height: 1.6;
+        }
+
+        .hero-actions {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 32px;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            min-height: 48px;
+            padding: 0 20px;
+            border: 1px solid var(--line-strong);
+            border-radius: 999px;
+            background: var(--paper-2);
+            color: var(--ink);
+            font-weight: 800;
+            box-shadow: 0 12px 28px rgba(19, 21, 19, 0.08);
+            transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 18px 38px rgba(19, 21, 19, 0.12);
+        }
+
+        .button.primary {
+            border-color: var(--ink);
+            background: var(--ink);
+            color: var(--paper-2);
+        }
+
+        .arrow {
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        .hero-board {
+            position: relative;
+            border: 1px solid rgba(255, 253, 246, 0.22);
+            border-radius: 26px;
+            background:
+                linear-gradient(145deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.03)),
+                #171916;
+            color: var(--paper-2);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .hero-board::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(rgba(255, 253, 246, 0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 253, 246, 0.06) 1px, transparent 1px);
+            background-size: 36px 36px;
+            mask-image: linear-gradient(to bottom, black, transparent 92%);
+            pointer-events: none;
+        }
+
+        .board-top {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 18px 20px;
+            border-bottom: 1px solid rgba(255, 253, 246, 0.11);
+        }
+
+        .board-heading {
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .board-label {
+            color: rgba(255, 253, 246, 0.64);
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .board-actions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            gap: 8px;
+        }
+
+        .board-actions a,
+        .mini-open,
+        .window-link-label {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 34px;
+            padding: 0 12px;
+            border: 1px solid rgba(255, 253, 246, 0.18);
+            border-radius: 999px;
+            color: var(--paper-2);
+            background: rgba(255, 253, 246, 0.08);
+            font-size: 12px;
+            font-weight: 900;
+            transition: background 160ms ease, transform 160ms ease;
+        }
+
+        .board-actions a:hover,
+        .mini-card:hover .mini-open,
+        .product-window:hover .window-link-label {
+            background: rgba(255, 253, 246, 0.18);
+            transform: translateY(-1px);
+        }
+
+        .board-grid {
+            position: relative;
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 18px;
+            padding: 18px;
+        }
+
+        .product-window {
+            position: relative;
+            min-height: 360px;
+            border: 1px solid rgba(255, 253, 246, 0.12);
+            border-radius: 18px;
+            background: #fffdf6;
+            color: var(--ink);
+            overflow: hidden;
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.28);
+        }
+
+        .product-window img {
+            width: 100%;
+            height: 100%;
+            min-height: 360px;
+            object-fit: cover;
+            object-position: top center;
+        }
+
+        .window-link-label {
+            position: absolute;
+            right: 18px;
+            bottom: 18px;
+            border-color: rgba(19, 21, 19, 0.18);
+            background: var(--ink);
+            box-shadow: 0 12px 26px rgba(19, 21, 19, 0.22);
+        }
+
+        .mini-stack {
+            display: grid;
+            gap: 18px;
+        }
+
+        .mini-card {
+            min-height: 171px;
+            padding: 18px;
+            border: 1px solid rgba(255, 253, 246, 0.13);
+            border-radius: 18px;
+            background: rgba(255, 253, 246, 0.08);
+            backdrop-filter: blur(10px);
+        }
+
+        .mini-card:hover {
+            border-color: rgba(255, 253, 246, 0.24);
+        }
+
+        .mini-card h3 {
+            margin-bottom: 8px;
+            font-size: 20px;
+        }
+
+        .mini-card p {
+            margin-bottom: 16px;
+            color: rgba(255, 253, 246, 0.72);
+            line-height: 1.6;
+        }
+
+        .mini-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+        }
+
+        .mini-tags span {
+            padding: 6px 9px;
+            border: 1px solid rgba(255, 253, 246, 0.14);
+            border-radius: 999px;
+            color: rgba(255, 253, 246, 0.72);
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .phone-card {
+            display: grid;
+            grid-template-columns: 104px 1fr;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .litter-icon-wrap {
+            width: 104px;
+            aspect-ratio: 1;
+            padding: 8px;
+            border: 1px solid rgba(255, 253, 246, 0.22);
+            border-radius: 26px;
+            background: rgba(255, 253, 246, 0.94);
+            box-shadow: 0 18px 34px rgba(0, 0, 0, 0.25);
+        }
+
+        .litter-icon-wrap img {
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            object-fit: cover;
+        }
+
+        .app-grid {
+            width: min(var(--max), calc(100% - 40px));
+            margin: 0 auto;
+            padding: 34px 0 96px;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .app-card {
+            min-height: 360px;
+            display: grid;
+            align-content: space-between;
+            gap: 24px;
+            padding: 22px;
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            background: rgba(255, 253, 246, 0.82);
+            box-shadow: 0 16px 46px rgba(19, 21, 19, 0.08);
+            transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+        }
+
+        .app-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(19, 21, 19, 0.24);
+            box-shadow: 0 24px 60px rgba(19, 21, 19, 0.13);
+        }
+
+        .app-card-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 18px;
+        }
+
+        .app-number {
+            color: var(--muted);
+            font-weight: 800;
+            font-size: 13px;
+        }
+
+        .app-icon {
+            width: 44px;
+            height: 44px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            color: var(--paper-2);
+            font-size: 18px;
+            font-weight: 900;
+        }
+
+        .govret .app-icon {
+            background: var(--teal);
+        }
+
+        .dashdork .app-icon {
+            background: var(--clay);
+        }
+
+        .litter .app-icon {
+            background: var(--blue);
+        }
+
+        .app-icon.image-icon {
+            width: 58px;
+            height: 58px;
+            padding: 4px;
+            border-radius: 18px;
+            background: #fffdf6;
+            box-shadow: 0 14px 28px rgba(19, 21, 19, 0.14);
+            overflow: hidden;
+        }
+
+        .app-icon.image-icon img {
+            width: 100%;
+            height: 100%;
+            border-radius: 14px;
+            object-fit: cover;
+        }
+
+        .app-card h2 {
+            margin-bottom: 10px;
+            font-size: 28px;
+            letter-spacing: 0;
+        }
+
+        .app-card p {
+            color: var(--muted);
+            font-size: 15px;
+            line-height: 1.65;
+        }
+
+        .app-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 20px;
+        }
+
+        .app-meta span {
+            padding: 7px 9px;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            color: var(--muted);
+            background: rgba(255, 255, 255, 0.46);
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .app-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding-top: 18px;
+            border-top: 1px solid var(--line);
+            font-size: 15px;
+            font-weight: 900;
+        }
+
+        .showcase {
+            border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+            background: rgba(255, 253, 246, 0.76);
+        }
+
+        .showcase-inner {
+            width: min(var(--max), calc(100% - 40px));
+            margin: 0 auto;
+            padding: 96px 0;
+            display: grid;
+            grid-template-columns: 0.86fr 1.14fr;
+            gap: 56px;
+            align-items: start;
+        }
+
+        .section-kicker {
+            margin-bottom: 14px;
+            color: var(--teal);
+            font-size: 13px;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        .section-title {
+            margin-bottom: 18px;
+            font-family: "Newsreader", serif;
+            font-size: clamp(38px, 5vw, 68px);
+            line-height: 1;
+            font-weight: 600;
+            letter-spacing: 0;
+        }
+
+        .section-copy {
+            color: var(--muted);
+            font-size: 18px;
+            line-height: 1.7;
+        }
+
+        .principles {
+            display: grid;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        .principle {
+            display: grid;
+            grid-template-columns: 34px 1fr;
+            gap: 14px;
+            align-items: start;
+            padding: 14px 0;
+            border-top: 1px solid var(--line);
+        }
+
+        .principle strong {
+            display: block;
+            margin-bottom: 3px;
+            font-size: 16px;
+        }
+
+        .principle p {
+            margin-bottom: 0;
+            color: var(--muted);
+            line-height: 1.55;
+        }
+
+        .principle-index {
+            display: grid;
+            place-items: center;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--ink);
+            color: var(--paper-2);
+            font-size: 12px;
+            font-weight: 900;
+        }
+
+        .screens {
+            display: grid;
+            gap: 18px;
+        }
+
+        .screen-shot {
+            padding: 12px;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            background: var(--paper-2);
+            box-shadow: 0 18px 54px rgba(19, 21, 19, 0.12);
+        }
+
+        .screen-shot img {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            border-radius: 10px;
+            object-fit: cover;
+            object-position: top center;
+            border: 1px solid rgba(19, 21, 19, 0.1);
+        }
+
+        .screen-caption {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 12px 4px 2px;
+            color: var(--muted);
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .cta {
+            width: min(var(--max), calc(100% - 40px));
+            margin: 0 auto;
+            padding: 96px 0;
+        }
+
+        .cta-box {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 30px;
+            align-items: end;
+            padding: 34px;
+            border: 1px solid rgba(255, 253, 246, 0.18);
+            border-radius: 24px;
+            background:
+                linear-gradient(135deg, rgba(24, 199, 162, 0.24), transparent 42%),
+                linear-gradient(220deg, rgba(255, 191, 31, 0.24), transparent 44%),
+                #161815;
+            color: var(--paper-2);
+            box-shadow: var(--shadow);
+        }
+
+        .cta h2 {
+            max-width: 780px;
+            margin-bottom: 12px;
+            font-family: "Newsreader", serif;
+            font-size: clamp(38px, 5.5vw, 72px);
+            line-height: 1;
+            font-weight: 600;
+            letter-spacing: 0;
+        }
+
+        .cta p {
+            max-width: 660px;
+            margin-bottom: 0;
+            color: rgba(255, 253, 246, 0.72);
+            font-size: 18px;
+            line-height: 1.65;
+        }
+
+        .cta .button {
+            border-color: rgba(255, 253, 246, 0.28);
+            background: var(--paper-2);
+            color: var(--ink);
+            white-space: nowrap;
+        }
+
+        footer {
+            border-top: 1px solid var(--line);
+            background: rgba(255, 253, 246, 0.9);
+        }
+
+        .footer-inner {
+            width: min(var(--max), calc(100% - 40px));
+            margin: 0 auto;
+            padding: 32px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            font-weight: 800;
+        }
+
+        .footer-links a:hover {
+            color: var(--ink);
+        }
+
+        @media (max-width: 980px) {
+            .nav {
+                min-height: 66px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                min-height: auto;
+                padding-top: 54px;
+            }
+
+            .board-grid,
+            .showcase-inner,
+            .cta-box {
+                grid-template-columns: 1fr;
+            }
+
+            .app-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .app-card {
+                min-height: auto;
+            }
+        }
+
+        @media (max-width: 680px) {
+            .nav,
+            .hero,
+            .app-grid,
+            .showcase-inner,
+            .cta,
+            .footer-inner {
+                width: min(100% - 28px, var(--max));
+            }
+
+            .nav-cta {
+                padding-inline: 13px;
+            }
+
+            .hero {
+                padding-top: 38px;
+                padding-bottom: 58px;
+            }
+
+            h1 {
+                font-size: clamp(44px, 16vw, 64px);
+            }
+
+            .hero-copy {
+                text-align: left;
+            }
+
+            .hero-actions {
+                justify-content: flex-start;
+            }
+
+            .button {
+                width: 100%;
+            }
+
+            .board-top {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .board-heading {
+                align-items: flex-start;
+            }
+
+            .board-actions {
+                justify-content: flex-start;
+            }
+
+            .board-grid {
+                padding: 12px;
+            }
+
+            .product-window,
+            .product-window img {
+                min-height: 260px;
+            }
+
+            .phone-card {
+                grid-template-columns: 1fr;
+            }
+
+            .app-grid {
+                padding-bottom: 66px;
+            }
+
+            .showcase-inner,
+            .cta {
+                padding: 66px 0;
+            }
+
+            .cta-box {
+                padding: 24px;
+                border-radius: 18px;
+            }
+
+            .footer-inner {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+
+        @media (prefers-reduced-motion: no-preference) {
+            .hero-copy,
+            .hero-board,
+            .app-card,
+            .showcase-inner,
+            .cta-box {
+                animation: rise 700ms ease both;
+            }
+
+            .hero-board {
+                animation-delay: 90ms;
+            }
+
+            .app-card:nth-child(1) {
+                animation-delay: 120ms;
+            }
+
+            .app-card:nth-child(2) {
+                animation-delay: 190ms;
+            }
+
+            .app-card:nth-child(3) {
+                animation-delay: 260ms;
+            }
+
+            @keyframes rise {
+                from {
+                    opacity: 0;
+                    transform: translateY(18px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        }
+    </style>
 </head>
-
-<body id="page-top" class="index">
-
-    <!-- Navigation -->
-    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header page-scroll">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
-                </button>
-                <a class="navbar-brand" href="#page-top">SMGray.com</a>
+<body>
+    <header class="site-header">
+        <nav class="nav" aria-label="Main navigation">
+            <a class="brand" href="#top" aria-label="SMGray home">
+                <span class="brand-mark">SM</span>
+                <span>SMGray Software</span>
+            </a>
+            <div class="nav-links" aria-label="Page sections">
+                <a href="#apps">Apps</a>
+                <a href="#approach">Approach</a>
+                <a href="#contact">Contact</a>
             </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="hidden">
-                        <a href="#page-top"></a>
-                    </li>
-                    <li class="page-scroll">
-                        <a href="#contact" title="smgray at gmail dot com">Contact</a>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div> 
-        <!-- /.container-fluid -->
-    </nav>
-
-    <!-- Header -->
-    <header>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <img class="img-responsive" src="img/avataaars.png" alt=""> 
-                    <div class="intro-text">
-                        <span class="name">SMGray Software Engineering</span>
-                </div>
-                </div>
-            </div>
-        </div>
+            <a class="nav-cta" href="#apps">View work <span aria-hidden="true">-&gt;</span></a>
+        </nav>
     </header>
 
- 
-    <!-- Contact Section -->
-    <section id="contact">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2>Contact Me</h2>
-                    <hr class="star-primary">
+    <main id="top">
+        <section class="hero" aria-labelledby="hero-title">
+            <div class="hero-copy">
+                <div class="eyebrow"><span class="pulse" aria-hidden="true"></span> Three products, one builder-led studio</div>
+                <h1 id="hero-title">Independent software for very different problems.</h1>
+                <p>SMGray builds focused applications across federal retirement planning, personal dashboards, and practical Android reminders.</p>
+                <div class="hero-actions" aria-label="Primary actions">
+                    <a class="button primary" href="#apps">Explore the apps <span class="arrow" aria-hidden="true">-&gt;</span></a>
+                    <a class="button contact-action" href="#contact" data-contact-action>Email SMGray</a>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 text-center">
-                    <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
-                    <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
-                    smgray at gmail dot com
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Footer -->
-    <footer class="text-center">
-        <div class="footer-above">
-            <div class="container">
-                <div class="row">
-                    <div class="footer-col col-md-4">
-                        <h3>Location</h3>
-                        <p>2225 Lawson Lane
-                            <br>Santa Clara, CA 95054</p>
+            <div class="hero-board" aria-label="SMGray product overview">
+                <div class="board-top">
+                    <div class="board-heading">
+                        <div class="board-label">Live applications from SMGray</div>
                     </div>
-                    <div class="footer-col col-md-4">
-                        <h3>Around the Web</h3>
-                        <ul class="list-inline">
-                            <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-facebook"></i></a>
-                            </li>
-                            <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-google-plus"></i></a>
-                            </li>
-                            <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-twitter"></i></a>
-                            </li>
-                            <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-linkedin"></i></a>
-                            </li>
-                            <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-dribbble"></i></a>
-                            </li>
-                        </ul>
+                    <div class="board-actions" aria-label="Product quick links">
+                        <a href="https://govret.com/" target="_blank" rel="noopener">GovRet</a>
+                        <a href="https://dashdork.com/" target="_blank" rel="noopener">DashDork</a>
+                        <a href="https://play.google.com/store/apps/details?id=com.smgray.catlitternag" target="_blank" rel="noopener">Cat Litter Nag</a>
                     </div>
-                    <div class="footer-col col-md-4">
-                        <h3>Related Sites</h3>
-                        <p><a href="https://govret.com" target="_blank">GovRet.com</a> - Government retirement planning resources and tools</p>
+                </div>
+                <div class="board-grid">
+                    <a class="product-window" href="https://govret.com/" target="_blank" rel="noopener" aria-label="Visit GovRet">
+                        <img src="img/products/govret.png" alt="GovRet retirement planning dashboard screenshot">
+                        <span class="window-link-label">Open GovRet -&gt;</span>
+                    </a>
+                    <div class="mini-stack">
+                        <a class="mini-card" href="https://dashdork.com/" target="_blank" rel="noopener" aria-label="Visit DashDork">
+                            <h3>DashDork</h3>
+                            <p>A personal web dashboard for feeds, notes, weather, themes, and quick daily context.</p>
+                            <div class="mini-tags" aria-label="DashDork tags"><span>RSS</span><span>Widgets</span><span>Themes</span></div>
+                            <span class="mini-open">Open DashDork -&gt;</span>
+                        </a>
+                        <a class="mini-card phone-card" href="https://play.google.com/store/apps/details?id=com.smgray.catlitternag" target="_blank" rel="noopener" aria-label="Open Cat Litter Nag on Google Play">
+                            <div class="litter-icon-wrap" aria-hidden="true">
+                                <img src="img/products/cat-litter-nag-icon.png" alt="">
+                            </div>
+                            <div>
+                                <h3>Cat Litter Nag</h3>
+                                <p>An Android reminder app for recurring litter-box care tasks.</p>
+                                <div class="mini-tags" aria-label="Cat Litter Nag tags"><span>Android</span><span>Reminders</span></div>
+                                <span class="mini-open">Open Google Play -&gt;</span>
+                            </div>
+                        </a>
                     </div>
                 </div>
             </div>
+        </section>
+
+        <section id="apps" class="app-grid" aria-label="SMGray applications">
+            <article class="app-card govret">
+                <div>
+                    <div class="app-card-top">
+                        <span class="app-number">01</span>
+                        <span class="app-icon" aria-hidden="true">G</span>
+                    </div>
+                    <h2>GovRet</h2>
+                    <p>Federal retirement planning tools for FERS employees, with calculators, scenario planning, FEHB checks, survivor annuity estimates, and a step-by-step planning wizard.</p>
+                    <div class="app-meta" aria-label="GovRet details">
+                        <span>Federal employees</span>
+                        <span>Retirement planning</span>
+                        <span>Web app</span>
+                    </div>
+                </div>
+                <a class="app-link" href="https://govret.com/" target="_blank" rel="noopener">Visit govret.com <span aria-hidden="true">-&gt;</span></a>
+            </article>
+
+            <article class="app-card dashdork">
+                <div>
+                    <div class="app-card-top">
+                        <span class="app-number">02</span>
+                        <span class="app-icon" aria-hidden="true">D</span>
+                    </div>
+                    <h2>DashDork</h2>
+                    <p>A clean Netvibes-style personal dashboard that brings RSS feeds, notes, weather, widgets, layouts, and themes into one fast start page.</p>
+                    <div class="app-meta" aria-label="DashDork details">
+                        <span>Personal dashboard</span>
+                        <span>RSS and widgets</span>
+                        <span>Chrome extension</span>
+                    </div>
+                </div>
+                <a class="app-link" href="https://dashdork.com/" target="_blank" rel="noopener">Visit dashdork.com <span aria-hidden="true">-&gt;</span></a>
+            </article>
+
+            <article class="app-card litter">
+                <div>
+                    <div class="app-card-top">
+                        <span class="app-number">03</span>
+                        <span class="app-icon image-icon" aria-hidden="true"><img src="img/products/cat-litter-nag-icon.png" alt=""></span>
+                    </div>
+                    <h2>Cat Litter Nag</h2>
+                    <p>A simple Android utility for the small household job that is easy to forget and unpleasant to miss: keeping litter-box cleaning on schedule.</p>
+                    <div class="app-meta" aria-label="Cat Litter Nag details">
+                        <span>Android app</span>
+                        <span>Recurring reminders</span>
+                        <span>Household utility</span>
+                    </div>
+                </div>
+                <a class="app-link" href="https://play.google.com/store/apps/details?id=com.smgray.catlitternag" target="_blank" rel="noopener">Get on Google Play <span aria-hidden="true">-&gt;</span></a>
+            </article>
+        </section>
+
+        <section id="approach" class="showcase" aria-labelledby="approach-title">
+            <div class="showcase-inner">
+                <div>
+                    <div class="section-kicker">The common thread</div>
+                    <h2 id="approach-title" class="section-title">Narrow products with obvious value.</h2>
+                    <p class="section-copy">The domains do not need to match. The work does: ship practical software, make the first screen useful, and give each product its own voice.</p>
+                    <div class="principles" aria-label="SMGray principles">
+                        <div class="principle">
+                            <span class="principle-index">1</span>
+                            <div>
+                                <strong>Start with a real task</strong>
+                                <p>Each app is organized around what people are trying to do, not around a generic portfolio category.</p>
+                            </div>
+                        </div>
+                        <div class="principle">
+                            <span class="principle-index">2</span>
+                            <div>
+                                <strong>Keep the interface direct</strong>
+                                <p>Retirement planning, dashboards, and reminder utilities all benefit from clear next actions.</p>
+                            </div>
+                        </div>
+                        <div class="principle">
+                            <span class="principle-index">3</span>
+                            <div>
+                                <strong>Let the products stand apart</strong>
+                                <p>SMGray is the maker behind the work; each application is free to serve its own audience.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="screens" aria-label="Product screenshots">
+                    <a class="screen-shot" href="https://dashdork.com/" target="_blank" rel="noopener">
+                        <img src="img/products/dashdork.png" alt="DashDork dashboard screenshot">
+                        <div class="screen-caption"><span>DashDork</span><span>Personal dashboard</span></div>
+                    </a>
+                    <a class="screen-shot" href="https://govret.com/" target="_blank" rel="noopener">
+                        <img src="img/products/govret.png" alt="GovRet planning website screenshot">
+                        <div class="screen-caption"><span>GovRet</span><span>FERS planning tools</span></div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="cta" aria-labelledby="contact-title">
+            <div class="cta-box">
+                <div>
+                    <div class="section-kicker">Contact</div>
+                    <h2 id="contact-title">Building the next focused app.</h2>
+                    <p>Questions, partnerships, or product feedback can go straight to Shaun Gray.</p>
+                </div>
+                <a class="button contact-action" href="#contact" data-contact-action>Email SMGray <span class="arrow" aria-hidden="true">-&gt;</span></a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-inner">
+            <div>&copy; 2026 SMGray Software. All rights reserved.</div>
+            <div class="footer-links" aria-label="Footer product links">
+                <a href="https://govret.com/" target="_blank" rel="noopener">GovRet</a>
+                <a href="https://dashdork.com/" target="_blank" rel="noopener">DashDork</a>
+                <a href="https://play.google.com/store/apps/details?id=com.smgray.catlitternag" target="_blank" rel="noopener">Cat Litter Nag</a>
+            </div>
         </div>
- 
     </footer>
+    <script>
+        (() => {
+            const contactCodes = [115, 109, 103, 114, 97, 121, 64, 103, 109, 97, 105, 108, 46, 99, 111, 109];
+            const contactAddress = () => String.fromCharCode(...contactCodes);
 
-    <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
-    <div class="scroll-top page-scroll hidden-sm hidden-xs hidden-lg hidden-md">
-        <a class="btn btn-primary" href="#page-top">
-            <i class="fa fa-chevron-up"></i>
-        </a>
-    </div>
-
-    <!-- Portfolio Modals -->
-    <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl">
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <div class="modal-body">
-                            <h2>Project Title</h2>
-                            <hr class="star-primary">
-                            <img src="img/portfolio/cabin.png" class="img-responsive img-centered" alt="">
-                            <p>Use this area of the page to describe your project. The icon above is part of a free icon set by <a href="https://sellfy.com/p/8Q9P/jV3VZ/">Flat Icons</a>. On their website, you can download their free set with 16 icons, or you can purchase the entire set with 146 icons for only $12!</p>
-                            <ul class="list-inline item-details">
-                                <li>Client:
-                                    <strong><a href="http://startbootstrap.com">Start Bootstrap</a>
-                                    </strong>
-                                </li>
-                                <li>Date:
-                                    <strong><a href="http://startbootstrap.com">April 2014</a>
-                                    </strong>
-                                </li>
-                                <li>Service:
-                                    <strong><a href="http://startbootstrap.com">Web Development</a>
-                                    </strong>
-                                </li>
-                            </ul>
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl">
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <div class="modal-body">
-                            <h2>Project Title</h2>
-                            <hr class="star-primary">
-                            <img src="img/portfolio/cake.png" class="img-responsive img-centered" alt="">
-                            <p>Use this area of the page to describe your project. The icon above is part of a free icon set by <a href="https://sellfy.com/p/8Q9P/jV3VZ/">Flat Icons</a>. On their website, you can download their free set with 16 icons, or you can purchase the entire set with 146 icons for only $12!</p>
-                            <ul class="list-inline item-details">
-                                <li>Client:
-                                    <strong><a href="http://startbootstrap.com">Start Bootstrap</a>
-                                    </strong>
-                                </li>
-                                <li>Date:
-                                    <strong><a href="http://startbootstrap.com">April 2014</a>
-                                    </strong>
-                                </li>
-                                <li>Service:
-                                    <strong><a href="http://startbootstrap.com">Web Development</a>
-                                    </strong>
-                                </li>
-                            </ul>
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="portfolio-modal modal fade" id="portfolioModal3" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl">
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <div class="modal-body">
-                            <h2>Project Title</h2>
-                            <hr class="star-primary">
-                            <img src="img/portfolio/circus.png" class="img-responsive img-centered" alt="">
-                            <p>Use this area of the page to describe your project. The icon above is part of a free icon set by <a href="https://sellfy.com/p/8Q9P/jV3VZ/">Flat Icons</a>. On their website, you can download their free set with 16 icons, or you can purchase the entire set with 146 icons for only $12!</p>
-                            <ul class="list-inline item-details">
-                                <li>Client:
-                                    <strong><a href="http://startbootstrap.com">Start Bootstrap</a>
-                                    </strong>
-                                </li>
-                                <li>Date:
-                                    <strong><a href="http://startbootstrap.com">April 2014</a>
-                                    </strong>
-                                </li>
-                                <li>Service:
-                                    <strong><a href="http://startbootstrap.com">Web Development</a>
-                                    </strong>
-                                </li>
-                            </ul>
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="portfolio-modal modal fade" id="portfolioModal4" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl">
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <div class="modal-body">
-                            <h2>Project Title</h2>
-                            <hr class="star-primary">
-                            <img src="img/portfolio/game.png" class="img-responsive img-centered" alt="">
-                            <p>Use this area of the page to describe your project. The icon above is part of a free icon set by <a href="https://sellfy.com/p/8Q9P/jV3VZ/">Flat Icons</a>. On their website, you can download their free set with 16 icons, or you can purchase the entire set with 146 icons for only $12!</p>
-                            <ul class="list-inline item-details">
-                                <li>Client:
-                                    <strong><a href="http://startbootstrap.com">Start Bootstrap</a>
-                                    </strong>
-                                </li>
-                                <li>Date:
-                                    <strong><a href="http://startbootstrap.com">April 2014</a>
-                                    </strong>
-                                </li>
-                                <li>Service:
-                                    <strong><a href="http://startbootstrap.com">Web Development</a>
-                                    </strong>
-                                </li>
-                            </ul>
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="portfolio-modal modal fade" id="portfolioModal5" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl">
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <div class="modal-body">
-                            <h2>Project Title</h2>
-                            <hr class="star-primary">
-                            <img src="img/portfolio/safe.png" class="img-responsive img-centered" alt="">
-                            <p>Use this area of the page to describe your project. The icon above is part of a free icon set by <a href="https://sellfy.com/p/8Q9P/jV3VZ/">Flat Icons</a>. On their website, you can download their free set with 16 icons, or you can purchase the entire set with 146 icons for only $12!</p>
-                            <ul class="list-inline item-details">
-                                <li>Client:
-                                    <strong><a href="http://startbootstrap.com">Start Bootstrap</a>
-                                    </strong>
-                                </li>
-                                <li>Date:
-                                    <strong><a href="http://startbootstrap.com">April 2014</a>
-                                    </strong>
-                                </li>
-                                <li>Service:
-                                    <strong><a href="http://startbootstrap.com">Web Development</a>
-                                    </strong>
-                                </li>
-                            </ul>
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="portfolio-modal modal fade" id="portfolioModal6" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl">
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <div class="modal-body">
-                            <h2>Project Title</h2>
-                            <hr class="star-primary">
-                            <img src="img/portfolio/submarine.png" class="img-responsive img-centered" alt="">
-                            <p>Use this area of the page to describe your project. The icon above is part of a free icon set by <a href="https://sellfy.com/p/8Q9P/jV3VZ/">Flat Icons</a>. On their website, you can download their free set with 16 icons, or you can purchase the entire set with 146 icons for only $12!</p>
-                            <ul class="list-inline item-details">
-                                <li>Client:
-                                    <strong><a href="http://startbootstrap.com">Start Bootstrap</a>
-                                    </strong>
-                                </li>
-                                <li>Date:
-                                    <strong><a href="http://startbootstrap.com">April 2014</a>
-                                    </strong>
-                                </li>
-                                <li>Service:
-                                    <strong><a href="http://startbootstrap.com">Web Development</a>
-                                    </strong>
-                                </li>
-                            </ul>
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- jQuery -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
-
-    <!-- Plugin JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-
-    <!-- Contact Form JavaScript -->
-    <script src="js/jqBootstrapValidation.js"></script>
-    <script src="js/contact_me.js"></script>
-
-    <!-- Theme JavaScript -->
-    <script src="js/freelancer.min.js"></script>
-
+            document.querySelectorAll("[data-contact-action]").forEach((link) => {
+                link.addEventListener("click", (event) => {
+                    event.preventDefault();
+                    window.location.href = `mailto:${contactAddress()}`;
+                });
+            });
+        })();
+    </script>
 </body>
-
 </html>
