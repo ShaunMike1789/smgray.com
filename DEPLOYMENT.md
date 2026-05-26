@@ -39,3 +39,5 @@ SES notes:
 - Give the IAM user only the permissions needed for `ses:SendEmail`.
 
 The Dockerfile runs gunicorn on port `80`, which matches your existing DashDork/GovRet CapRover pattern.
+
+Production deploys are triggered from CapRover Method 3 using the GitHub push webhook for the `master` branch.
