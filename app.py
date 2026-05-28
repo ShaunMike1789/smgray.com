@@ -85,6 +85,11 @@ def images(path):
     return send_from_directory("img", path)
 
 
+@app.get("/myorepstrainer/privacy-policy/")
+def myoreps_privacy_policy():
+    return send_from_directory("myorepstrainer/privacy-policy", "index.html")
+
+
 @app.post("/contact")
 def contact():
     data = _payload()
