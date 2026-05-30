@@ -90,6 +90,12 @@ def myoreps_privacy_policy():
     return send_from_directory("myorepstrainer/privacy-policy", "index.html")
 
 
+@app.get("/torrentsearch/")
+@app.get("/torrentsearch/index.html")
+def torrent_search():
+    return send_from_directory("torrentsearch", "index.html")
+
+
 @app.post("/contact")
 def contact():
     data = _payload()
