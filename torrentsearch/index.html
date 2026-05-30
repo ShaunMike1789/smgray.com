@@ -16,9 +16,6 @@
             --paper-2: #fffdf6;
             --muted: #686b63;
             --line: rgba(18, 20, 17, 0.14);
-            --teal: #18c7a2;
-            --clay: #df5f27;
-            --blue: #5e71e7;
             color-scheme: light;
         }
 
@@ -40,11 +37,6 @@
             font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
         }
 
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-
         .page {
             width: min(100% - 40px, 980px);
             margin: 0 auto;
@@ -56,6 +48,8 @@
             align-items: center;
             gap: 12px;
             margin-bottom: 44px;
+            color: inherit;
+            text-decoration: none;
             font-weight: 900;
         }
 
@@ -89,7 +83,7 @@
             display: grid;
             grid-template-columns: 1fr auto;
             gap: 10px;
-            margin-bottom: 18px;
+            margin-bottom: 10px;
             padding: 10px;
             border: 1px solid var(--line);
             border-radius: 18px;
@@ -124,9 +118,7 @@
         }
 
         button {
-            align-self: end;
             min-height: 52px;
-            padding: 0 18px;
             border: 1px solid var(--ink);
             border-radius: 999px;
             background: var(--ink);
@@ -134,6 +126,19 @@
             cursor: pointer;
             font: inherit;
             font-weight: 900;
+        }
+
+        .open-all {
+            align-self: end;
+            padding: 0 18px;
+        }
+
+        .status {
+            min-height: 22px;
+            margin: 0 0 18px;
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.45;
         }
 
         .sites {
@@ -145,11 +150,13 @@
         .site-card {
             display: grid;
             gap: 18px;
+            min-height: 170px;
             padding: 18px;
             border: 1px solid var(--line);
             border-radius: 16px;
             background: rgba(255, 253, 246, 0.88);
             box-shadow: 0 14px 34px rgba(18, 20, 17, 0.08);
+            text-align: left;
             transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
         }
 
@@ -159,12 +166,13 @@
             box-shadow: 0 20px 44px rgba(18, 20, 17, 0.12);
         }
 
-        .site-top {
-            display: block;
+        .site-card:focus-visible {
+            outline: 4px solid rgba(24, 199, 162, 0.2);
         }
 
         .site-name {
             margin: 0;
+            color: var(--ink);
             font-size: 22px;
             line-height: 1.1;
         }
@@ -177,93 +185,15 @@
             line-height: 1.45;
         }
 
-        .open-status {
-            grid-column: 1 / -1;
-            min-height: 18px;
-            margin: 0;
-            color: var(--muted);
-            font-size: 13px;
-            line-height: 1.4;
-        }
-
-        .fallback-panel {
-            margin: 0 0 18px;
-            padding: 16px;
-            border: 1px solid var(--line);
-            border-radius: 16px;
-            background: rgba(255, 253, 246, 0.9);
-            box-shadow: 0 14px 34px rgba(18, 20, 17, 0.08);
-        }
-
-        .fallback-panel[hidden] {
-            display: none;
-        }
-
-        .fallback-header {
+        .site-action {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 14px;
-            margin-bottom: 14px;
-        }
-
-        .fallback-panel h2 {
-            margin: 0;
-            font-size: 18px;
-            line-height: 1.1;
-        }
-
-        .copy-links {
-            min-height: 40px;
-            padding: 0 14px;
-            background: var(--paper-2);
-            color: var(--ink);
-            box-shadow: none;
-        }
-
-        .fallback-links {
-            display: grid;
-            gap: 8px;
-        }
-
-        .fallback-link {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-            padding: 10px 12px;
-            border: 1px solid var(--line);
-            border-radius: 12px;
-            background: var(--paper-2);
-            font-weight: 900;
-        }
-
-        .launcher-page .open-status {
-            grid-column: auto;
-            margin-top: 12px;
-        }
-
-        .launcher-actions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 18px;
-        }
-
-        .open-link {
-            min-height: 42px;
-            display: inline-flex;
             align-items: center;
             justify-content: space-between;
             gap: 14px;
             padding-top: 12px;
             border-top: 1px solid var(--line);
+            color: var(--ink);
             font-weight: 900;
-        }
-
-        .empty .open-link {
-            pointer-events: none;
-            color: var(--muted);
         }
 
         @media (max-width: 720px) {
@@ -281,14 +211,14 @@
                 grid-template-columns: 1fr;
             }
 
-            button {
+            .open-all {
                 width: 100%;
             }
         }
     </style>
 </head>
 <body>
-    <main class="page" id="searchPage">
+    <main class="page">
         <a class="brand" href="/" aria-label="SMGray home">
             <img src="../img/smgray-favicon.png" alt="">
             <span>TorSearch</span>
@@ -304,47 +234,19 @@
                 Search term
                 <input id="searchTerm" name="searchTerm" autocomplete="off" autofocus>
             </label>
-            <button id="openAllButton" type="button">Open all</button>
-            <p class="open-status" id="openStatus" role="status" aria-live="polite"></p>
+            <button class="open-all" type="submit">Open all</button>
         </form>
-
-        <section class="fallback-panel" id="fallbackPanel" aria-labelledby="fallbackTitle" hidden>
-            <div class="fallback-header">
-                <h2 id="fallbackTitle">Search links ready</h2>
-                <button class="copy-links" id="copyLinks" type="button">Copy links</button>
-            </div>
-            <div class="fallback-links" id="fallbackLinks"></div>
-        </section>
+        <p class="status" id="status" role="status" aria-live="polite"></p>
 
         <section class="sites" id="sites" aria-label="Torrent search sites"></section>
     </main>
 
-    <main class="page launcher-page" id="launcherPage" hidden>
-        <a class="brand" href="/torrentsearch/" aria-label="TorSearch home">
-            <img src="../img/smgray-favicon.png" alt="">
-            <span>TorSearch</span>
-        </a>
-
-        <section class="hero" aria-labelledby="launcherTitle">
-            <h1 id="launcherTitle">Open search tabs.</h1>
-            <p class="lead">Chrome may block batch tab opening until pop-ups are allowed for smgray.com. If it blocks them, the links below still work one at a time.</p>
-        </section>
-
-        <div class="launcher-actions">
-            <button id="launcherOpenAll" type="button">Open all tabs</button>
-        </div>
-        <p class="open-status" id="launcherStatus" role="status" aria-live="polite"></p>
-        <section class="fallback-links" id="launcherLinks" aria-label="Search links"></section>
-    </main>
-
     <template id="siteTemplate">
-        <article class="site-card empty">
-            <div class="site-top">
-                <h2 class="site-name"></h2>
-            </div>
+        <button class="site-card" type="button">
+            <h2 class="site-name"></h2>
             <div class="url"></div>
-            <a class="open-link" target="_blank" rel="noopener">Open <span aria-hidden="true">-&gt;</span></a>
-        </article>
+            <span class="site-action">Open <span aria-hidden="true">-&gt;</span></span>
+        </button>
     </template>
 
     <script>
@@ -376,23 +278,80 @@
             }
         ];
 
-        const searchPage = document.querySelector("#searchPage");
-        const launcherPage = document.querySelector("#launcherPage");
         const form = document.querySelector("#searchForm");
         const input = document.querySelector("#searchTerm");
-        const openAllButton = document.querySelector("#openAllButton");
         const sitesRoot = document.querySelector("#sites");
+        const status = document.querySelector("#status");
         const template = document.querySelector("#siteTemplate");
-        const openStatus = document.querySelector("#openStatus");
-        const fallbackPanel = document.querySelector("#fallbackPanel");
-        const fallbackLinks = document.querySelector("#fallbackLinks");
-        const copyLinks = document.querySelector("#copyLinks");
-        const launcherOpenAll = document.querySelector("#launcherOpenAll");
-        const launcherStatus = document.querySelector("#launcherStatus");
-        const launcherLinks = document.querySelector("#launcherLinks");
-
         const params = new URLSearchParams(window.location.search);
+
         input.value = params.get("searchTerm") || "";
+
+        function currentUrl(site, term) {
+            return term ? site.buildUrl(term) : site.home;
+        }
+
+        function currentTargets() {
+            const term = input.value.trim();
+            return sites.map((site) => ({
+                name: site.name,
+                url: currentUrl(site, term)
+            }));
+        }
+
+        function syncUrl() {
+            const nextParams = new URLSearchParams();
+            const term = input.value.trim();
+
+            if (term) {
+                nextParams.set("searchTerm", term);
+            }
+
+            const nextUrl = `${window.location.pathname}${nextParams.toString() ? `?${nextParams}` : ""}`;
+            window.history.replaceState({}, "", nextUrl);
+        }
+
+        function focusThisPage() {
+            setTimeout(() => {
+                window.focus();
+                input.focus({ preventScroll: true });
+            }, 50);
+        }
+
+        function openTarget(target) {
+            const tab = window.open(target.url, "_blank");
+
+            if (tab) {
+                try {
+                    tab.opener = null;
+                    tab.blur();
+                } catch (error) {
+                    // Some browsers restrict focus control on cross-origin tabs.
+                }
+
+                focusThisPage();
+                status.textContent = `Opened ${target.name}.`;
+                return true;
+            }
+
+            status.textContent = `Chrome blocked ${target.name}. Allow pop-ups for smgray.com.`;
+            return false;
+        }
+
+        function openTargets(targets) {
+            let opened = 0;
+
+            targets.forEach((target) => {
+                if (openTarget(target)) {
+                    opened += 1;
+                }
+            });
+
+            focusThisPage();
+            status.textContent = opened === targets.length
+                ? `Opened ${opened} tabs.`
+                : `Chrome opened ${opened} of ${targets.length} tabs. Allow pop-ups for smgray.com, then try again.`;
+        }
 
         function renderSites() {
             const term = input.value.trim();
@@ -400,162 +359,30 @@
 
             sites.forEach((site) => {
                 const card = template.content.firstElementChild.cloneNode(true);
-                const url = term ? site.buildUrl(term) : site.home;
-                card.classList.toggle("empty", !term);
+                const target = {
+                    name: site.name,
+                    url: currentUrl(site, term)
+                };
+
                 card.querySelector(".site-name").textContent = site.name;
-                card.querySelector(".url").textContent = url;
-                card.querySelector(".open-link").href = url;
+                card.querySelector(".url").textContent = target.url;
+                card.addEventListener("click", () => openTarget(target));
                 sitesRoot.appendChild(card);
             });
-        }
-
-        function currentTargets(term) {
-            return sites.map((site) => ({
-                name: site.name,
-                url: site.buildUrl(term)
-            }));
-        }
-
-        function createSearchLink(target) {
-            const link = document.createElement("a");
-            const name = document.createElement("span");
-            const arrow = document.createElement("span");
-
-            link.className = "fallback-link";
-            link.href = target.url;
-            link.target = "_blank";
-            link.rel = "noopener";
-            name.textContent = target.name;
-            arrow.textContent = "->";
-            arrow.setAttribute("aria-hidden", "true");
-            link.append(name, arrow);
-            return link;
-        }
-
-        function renderLinkList(root, targets) {
-            root.replaceChildren();
-            targets.forEach((target) => root.appendChild(createSearchLink(target)));
-        }
-
-        function renderFallback(targets) {
-            renderLinkList(fallbackLinks, targets);
-            fallbackPanel.hidden = false;
-        }
-
-        async function copyTargetLinks(targets, statusElement) {
-            const text = targets.map((target) => target.url).join("\n");
-            await navigator.clipboard.writeText(text);
-            statusElement.textContent = "Copied all search links.";
-        }
-
-        function openTargetTabs(targets, statusElement) {
-            let opened = 0;
-
-            targets.forEach((target) => {
-                const tab = window.open(target.url, "_blank");
-                if (tab) {
-                    opened += 1;
-                }
-            });
-
-            statusElement.textContent = opened === targets.length
-                ? "Opened all tabs."
-                : `Chrome opened ${opened} of ${targets.length} tabs. Allow pop-ups for smgray.com, then click again.`;
-        }
-
-        function launcherUrl(term) {
-            const launcherParams = new URLSearchParams();
-            launcherParams.set("searchTerm", term);
-            launcherParams.set("launcher", "1");
-            return `${window.location.pathname}?${launcherParams}`;
-        }
-
-        function openLauncher(term) {
-            return window.open(launcherUrl(term), "torsearch-links");
-        }
-
-        function syncUrl() {
-            const nextParams = new URLSearchParams(window.location.search);
-            const term = input.value.trim();
-
-            if (term) {
-                nextParams.set("searchTerm", term);
-            } else {
-                nextParams.delete("searchTerm");
-            }
-
-            nextParams.delete("launcher");
-            const nextUrl = `${window.location.pathname}${nextParams.toString() ? `?${nextParams}` : ""}`;
-            window.history.replaceState({}, "", nextUrl);
         }
 
         input.addEventListener("input", () => {
             syncUrl();
             renderSites();
-            fallbackPanel.hidden = true;
-            openStatus.textContent = "";
+            status.textContent = "";
         });
 
-        function handleOpenAll(event) {
+        form.addEventListener("submit", (event) => {
             event.preventDefault();
-            const term = input.value.trim();
-            if (!term) {
-                input.focus();
-                return;
-            }
-
-            const targets = currentTargets(term);
-            renderFallback(targets);
-
-            if (openLauncher(term)) {
-                openStatus.textContent = "Opened a launcher tab with all search links.";
-            } else {
-                openStatus.textContent = "Chrome blocked the launcher tab. The links are ready below.";
-            }
-        }
-
-        form.addEventListener("submit", handleOpenAll);
-        openAllButton.addEventListener("click", handleOpenAll);
-
-        copyLinks.addEventListener("click", async () => {
-            const term = input.value.trim();
-            if (!term) {
-                input.focus();
-                return;
-            }
-
-            try {
-                await copyTargetLinks(currentTargets(term), openStatus);
-            } catch (error) {
-                openStatus.textContent = "Copy failed. The links are ready below.";
-            }
+            openTargets(currentTargets());
         });
 
-        if (params.get("launcher") === "1") {
-            const term = input.value.trim();
-            const targets = term ? currentTargets(term) : [];
-            searchPage.hidden = true;
-            launcherPage.hidden = false;
-            document.title = term ? `TorSearch links: ${term}` : "TorSearch links";
-            renderLinkList(launcherLinks, targets);
-
-            if (!term) {
-                launcherStatus.textContent = "No search term supplied.";
-            }
-
-            launcherOpenAll.addEventListener("click", () => {
-                if (!targets.length) {
-                    launcherStatus.textContent = "No search term supplied.";
-                    return;
-                }
-
-                openTargetTabs(targets, launcherStatus);
-            });
-        } else {
-            launcherPage.hidden = true;
-            searchPage.hidden = false;
-            renderSites();
-        }
+        renderSites();
     </script>
 </body>
 </html>
