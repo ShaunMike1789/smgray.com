@@ -160,10 +160,7 @@
         }
 
         .site-top {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 14px;
+            display: block;
         }
 
         .site-name {
@@ -172,29 +169,85 @@
             line-height: 1.1;
         }
 
-        .dot {
-            width: 12px;
-            height: 12px;
-            flex: 0 0 auto;
-            border-radius: 999px;
-            background: var(--teal);
-        }
-
-        .site-card:nth-child(2) .dot,
-        .site-card:nth-child(5) .dot {
-            background: var(--clay);
-        }
-
-        .site-card:nth-child(3) .dot {
-            background: var(--blue);
-        }
-
         .url {
             min-height: 42px;
             overflow-wrap: anywhere;
             color: var(--muted);
             font-size: 13px;
             line-height: 1.45;
+        }
+
+        .open-status {
+            grid-column: 1 / -1;
+            min-height: 18px;
+            margin: 0;
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .fallback-panel {
+            margin: 0 0 18px;
+            padding: 16px;
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            background: rgba(255, 253, 246, 0.9);
+            box-shadow: 0 14px 34px rgba(18, 20, 17, 0.08);
+        }
+
+        .fallback-panel[hidden] {
+            display: none;
+        }
+
+        .fallback-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            margin-bottom: 14px;
+        }
+
+        .fallback-panel h2 {
+            margin: 0;
+            font-size: 18px;
+            line-height: 1.1;
+        }
+
+        .copy-links {
+            min-height: 40px;
+            padding: 0 14px;
+            background: var(--paper-2);
+            color: var(--ink);
+            box-shadow: none;
+        }
+
+        .fallback-links {
+            display: grid;
+            gap: 8px;
+        }
+
+        .fallback-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 10px 12px;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            background: var(--paper-2);
+            font-weight: 900;
+        }
+
+        .launcher-page .open-status {
+            grid-column: auto;
+            margin-top: 12px;
+        }
+
+        .launcher-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 18px;
         }
 
         .open-link {
@@ -235,7 +288,7 @@
     </style>
 </head>
 <body>
-    <main class="page">
+    <main class="page" id="searchPage">
         <a class="brand" href="/" aria-label="SMGray home">
             <img src="../img/smgray-favicon.png" alt="">
             <span>TorSearch</span>
@@ -251,17 +304,43 @@
                 Search term
                 <input id="searchTerm" name="searchTerm" autocomplete="off" autofocus>
             </label>
-            <button type="submit">Open all</button>
+            <button id="openAllButton" type="button">Open all</button>
+            <p class="open-status" id="openStatus" role="status" aria-live="polite"></p>
         </form>
 
+        <section class="fallback-panel" id="fallbackPanel" aria-labelledby="fallbackTitle" hidden>
+            <div class="fallback-header">
+                <h2 id="fallbackTitle">Search links ready</h2>
+                <button class="copy-links" id="copyLinks" type="button">Copy links</button>
+            </div>
+            <div class="fallback-links" id="fallbackLinks"></div>
+        </section>
+
         <section class="sites" id="sites" aria-label="Torrent search sites"></section>
+    </main>
+
+    <main class="page launcher-page" id="launcherPage" hidden>
+        <a class="brand" href="/torrentsearch/" aria-label="TorSearch home">
+            <img src="../img/smgray-favicon.png" alt="">
+            <span>TorSearch</span>
+        </a>
+
+        <section class="hero" aria-labelledby="launcherTitle">
+            <h1 id="launcherTitle">Open search tabs.</h1>
+            <p class="lead">Chrome may block batch tab opening until pop-ups are allowed for smgray.com. If it blocks them, the links below still work one at a time.</p>
+        </section>
+
+        <div class="launcher-actions">
+            <button id="launcherOpenAll" type="button">Open all tabs</button>
+        </div>
+        <p class="open-status" id="launcherStatus" role="status" aria-live="polite"></p>
+        <section class="fallback-links" id="launcherLinks" aria-label="Search links"></section>
     </main>
 
     <template id="siteTemplate">
         <article class="site-card empty">
             <div class="site-top">
                 <h2 class="site-name"></h2>
-                <span class="dot" aria-hidden="true"></span>
             </div>
             <div class="url"></div>
             <a class="open-link" target="_blank" rel="noopener">Open <span aria-hidden="true">-&gt;</span></a>
@@ -297,10 +376,20 @@
             }
         ];
 
+        const searchPage = document.querySelector("#searchPage");
+        const launcherPage = document.querySelector("#launcherPage");
         const form = document.querySelector("#searchForm");
         const input = document.querySelector("#searchTerm");
+        const openAllButton = document.querySelector("#openAllButton");
         const sitesRoot = document.querySelector("#sites");
         const template = document.querySelector("#siteTemplate");
+        const openStatus = document.querySelector("#openStatus");
+        const fallbackPanel = document.querySelector("#fallbackPanel");
+        const fallbackLinks = document.querySelector("#fallbackLinks");
+        const copyLinks = document.querySelector("#copyLinks");
+        const launcherOpenAll = document.querySelector("#launcherOpenAll");
+        const launcherStatus = document.querySelector("#launcherStatus");
+        const launcherLinks = document.querySelector("#launcherLinks");
 
         const params = new URLSearchParams(window.location.search);
         input.value = params.get("searchTerm") || "";
@@ -320,26 +409,94 @@
             });
         }
 
+        function currentTargets(term) {
+            return sites.map((site) => ({
+                name: site.name,
+                url: site.buildUrl(term)
+            }));
+        }
+
+        function createSearchLink(target) {
+            const link = document.createElement("a");
+            const name = document.createElement("span");
+            const arrow = document.createElement("span");
+
+            link.className = "fallback-link";
+            link.href = target.url;
+            link.target = "_blank";
+            link.rel = "noopener";
+            name.textContent = target.name;
+            arrow.textContent = "->";
+            arrow.setAttribute("aria-hidden", "true");
+            link.append(name, arrow);
+            return link;
+        }
+
+        function renderLinkList(root, targets) {
+            root.replaceChildren();
+            targets.forEach((target) => root.appendChild(createSearchLink(target)));
+        }
+
+        function renderFallback(targets) {
+            renderLinkList(fallbackLinks, targets);
+            fallbackPanel.hidden = false;
+        }
+
+        async function copyTargetLinks(targets, statusElement) {
+            const text = targets.map((target) => target.url).join("\n");
+            await navigator.clipboard.writeText(text);
+            statusElement.textContent = "Copied all search links.";
+        }
+
+        function openTargetTabs(targets, statusElement) {
+            let opened = 0;
+
+            targets.forEach((target) => {
+                const tab = window.open(target.url, "_blank");
+                if (tab) {
+                    opened += 1;
+                }
+            });
+
+            statusElement.textContent = opened === targets.length
+                ? "Opened all tabs."
+                : `Chrome opened ${opened} of ${targets.length} tabs. Allow pop-ups for smgray.com, then click again.`;
+        }
+
+        function launcherUrl(term) {
+            const launcherParams = new URLSearchParams();
+            launcherParams.set("searchTerm", term);
+            launcherParams.set("launcher", "1");
+            return `${window.location.pathname}?${launcherParams}`;
+        }
+
+        function openLauncher(term) {
+            return window.open(launcherUrl(term), "torsearch-links");
+        }
+
         function syncUrl() {
-            const params = new URLSearchParams(window.location.search);
+            const nextParams = new URLSearchParams(window.location.search);
             const term = input.value.trim();
 
             if (term) {
-                params.set("searchTerm", term);
+                nextParams.set("searchTerm", term);
             } else {
-                params.delete("searchTerm");
+                nextParams.delete("searchTerm");
             }
 
-            const nextUrl = `${window.location.pathname}${params.toString() ? `?${params}` : ""}`;
+            nextParams.delete("launcher");
+            const nextUrl = `${window.location.pathname}${nextParams.toString() ? `?${nextParams}` : ""}`;
             window.history.replaceState({}, "", nextUrl);
         }
 
         input.addEventListener("input", () => {
             syncUrl();
             renderSites();
+            fallbackPanel.hidden = true;
+            openStatus.textContent = "";
         });
 
-        form.addEventListener("submit", (event) => {
+        function handleOpenAll(event) {
             event.preventDefault();
             const term = input.value.trim();
             if (!term) {
@@ -347,12 +504,58 @@
                 return;
             }
 
-            sites.forEach((site) => {
-                window.open(site.buildUrl(term), "_blank", "noopener");
-            });
+            const targets = currentTargets(term);
+            renderFallback(targets);
+
+            if (openLauncher(term)) {
+                openStatus.textContent = "Opened a launcher tab with all search links.";
+            } else {
+                openStatus.textContent = "Chrome blocked the launcher tab. The links are ready below.";
+            }
+        }
+
+        form.addEventListener("submit", handleOpenAll);
+        openAllButton.addEventListener("click", handleOpenAll);
+
+        copyLinks.addEventListener("click", async () => {
+            const term = input.value.trim();
+            if (!term) {
+                input.focus();
+                return;
+            }
+
+            try {
+                await copyTargetLinks(currentTargets(term), openStatus);
+            } catch (error) {
+                openStatus.textContent = "Copy failed. The links are ready below.";
+            }
         });
 
-        renderSites();
+        if (params.get("launcher") === "1") {
+            const term = input.value.trim();
+            const targets = term ? currentTargets(term) : [];
+            searchPage.hidden = true;
+            launcherPage.hidden = false;
+            document.title = term ? `TorSearch links: ${term}` : "TorSearch links";
+            renderLinkList(launcherLinks, targets);
+
+            if (!term) {
+                launcherStatus.textContent = "No search term supplied.";
+            }
+
+            launcherOpenAll.addEventListener("click", () => {
+                if (!targets.length) {
+                    launcherStatus.textContent = "No search term supplied.";
+                    return;
+                }
+
+                openTargetTabs(targets, launcherStatus);
+            });
+        } else {
+            launcherPage.hidden = true;
+            searchPage.hidden = false;
+            renderSites();
+        }
     </script>
 </body>
 </html>
