@@ -80,6 +80,11 @@ def healthz():
     return {"ok": True}
 
 
+@app.get("/favicon.ico")
+def favicon():
+    return send_from_directory("img", "smgray-favicon.png")
+
+
 @app.get("/img/<path:path>")
 def images(path):
     return send_from_directory("img", path)
