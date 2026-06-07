@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="SMGray builds focused applications including GovRet, DashDork, and Cat Litter Nag.">
+    <meta name="description" content="SMGray builds focused applications including GovRet, DashDork, Cat Litter Nag, and Myo-Reps Trainer.">
     <meta name="author" content="SMGray">
     <title>SMGray Software</title>
     <link rel="icon" type="image/png" sizes="512x512" href="/img/smgray-favicon.png?v=2">
@@ -22,6 +22,7 @@
             --teal: #0b827e;
             --clay: #d95d2a;
             --blue: #5a77e5;
+            --moss: #778b28;
             --shadow: 0 18px 54px rgba(18, 20, 17, 0.12);
             --max: 1120px;
         }
@@ -184,7 +185,7 @@
 
         .app-grid {
             display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
+            grid-template-columns: repeat(4, minmax(0, 1fr));
             gap: 18px;
         }
 
@@ -264,6 +265,75 @@
             object-fit: cover;
         }
 
+        .myo-media {
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 8px;
+            padding: 18px 14px 0;
+            background:
+                linear-gradient(rgba(18, 20, 17, 0.045) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(18, 20, 17, 0.045) 1px, transparent 1px),
+                #e9f0d2;
+            background-size: 28px 28px;
+        }
+
+        .myo-phone {
+            width: min(31%, 88px);
+            height: 164px;
+            padding: 10px;
+            display: grid;
+            align-content: start;
+            gap: 8px;
+            border: 2px solid var(--ink);
+            border-bottom: 0;
+            border-radius: 16px 16px 0 0;
+            background: #fffdf6;
+            box-shadow: 0 16px 30px rgba(18, 20, 17, 0.14);
+        }
+
+        .myo-phone:nth-child(2) {
+            transform: translateY(-8px);
+        }
+
+        .myo-bar,
+        .myo-pill,
+        .myo-line {
+            display: block;
+            border-radius: 999px;
+        }
+
+        .myo-bar {
+            width: 58%;
+            height: 7px;
+            background: rgba(18, 20, 17, 0.32);
+        }
+
+        .myo-pill {
+            width: 78%;
+            height: 18px;
+            background: var(--moss);
+        }
+
+        .myo-line {
+            height: 8px;
+            background: rgba(18, 20, 17, 0.12);
+        }
+
+        .myo-count {
+            display: flex;
+            gap: 4px;
+        }
+
+        .myo-count span {
+            flex: 1;
+            height: 22px;
+            border: 1px solid rgba(18, 20, 17, 0.18);
+            border-radius: 7px;
+            background: rgba(119, 139, 40, 0.14);
+        }
+
         .app-body {
             padding: 22px;
         }
@@ -295,6 +365,10 @@
 
         .litter .app-dot {
             background: var(--blue);
+        }
+
+        .myoreps .app-dot {
+            background: var(--moss);
         }
 
         .app-card h3 {
@@ -535,7 +609,7 @@
             }
 
             .app-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
             }
 
             .app-card {
@@ -594,6 +668,10 @@
                 border-radius: 14px;
             }
 
+            .app-grid {
+                grid-template-columns: 1fr;
+            }
+
             .contact-form {
                 grid-template-columns: 1fr;
             }
@@ -616,6 +694,10 @@
             }
 
             .litter-media .screenshot {
+                height: 146px;
+            }
+
+            .myo-phone {
                 height: 146px;
             }
 
@@ -644,6 +726,10 @@
 
             .app-card:nth-child(3) {
                 animation-delay: 200ms;
+            }
+
+            .app-card:nth-child(4) {
+                animation-delay: 260ms;
             }
 
             @keyframes rise {
@@ -733,6 +819,39 @@
                         </div>
                     </div>
                     <a class="app-link" href="https://play.google.com/store/apps/details?id=com.smgray.catlitternag" target="_blank" rel="noopener">Get on Google Play <span aria-hidden="true">-&gt;</span></a>
+                </article>
+
+                <article class="app-card myoreps">
+                    <a class="app-media myo-media" href="https://play.google.com/store/apps/details?id=com.smgray.myorepstrainer" target="_blank" rel="noopener" aria-label="Open Myo-Reps Trainer on Google Play">
+                        <span class="myo-phone" aria-hidden="true">
+                            <span class="myo-bar"></span>
+                            <span class="myo-pill"></span>
+                            <span class="myo-line"></span>
+                            <span class="myo-count"><span></span><span></span><span></span></span>
+                        </span>
+                        <span class="myo-phone" aria-hidden="true">
+                            <span class="myo-bar"></span>
+                            <span class="myo-line"></span>
+                            <span class="myo-pill"></span>
+                            <span class="myo-count"><span></span><span></span><span></span></span>
+                        </span>
+                        <span class="myo-phone" aria-hidden="true">
+                            <span class="myo-bar"></span>
+                            <span class="myo-pill"></span>
+                            <span class="myo-line"></span>
+                            <span class="myo-line"></span>
+                        </span>
+                    </a>
+                    <div class="app-body">
+                        <div class="app-kicker"><span>Android app</span><span class="app-dot" aria-hidden="true"></span></div>
+                        <h3>Myo-Reps Trainer</h3>
+                        <p>A local-first workout logging app for planning, tracking, and progressing Myo-Reps style training sessions.</p>
+                        <div class="tags" aria-label="Myo-Reps Trainer tags">
+                            <span>Workout logging</span>
+                            <span>Local-first</span>
+                        </div>
+                    </div>
+                    <a class="app-link" href="https://play.google.com/store/apps/details?id=com.smgray.myorepstrainer" target="_blank" rel="noopener">Get on Google Play <span aria-hidden="true">-&gt;</span></a>
                 </article>
             </div>
         </section>
