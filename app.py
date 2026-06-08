@@ -85,6 +85,11 @@ def favicon():
     return send_from_directory("img", "smgray-favicon.png")
 
 
+@app.get("/app-ads.txt")
+def app_ads_txt():
+    return send_from_directory(".", "app-ads.txt", mimetype="text/plain")
+
+
 @app.get("/img/<path:path>")
 def images(path):
     return send_from_directory("img", path)
