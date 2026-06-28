@@ -38,6 +38,7 @@ CLERK_SIGN_IN_FALLBACK_REDIRECT_URL=/tools
 NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL=/tools
 CLERK_SIGN_UP_FALLBACK_REDIRECT_URL=/tools
 AUTHORIZED_EMAILS=<your-email-address>
+AUTHORIZED_CLERK_USER_IDS=<your-clerk-user-id>
 ```
 
 SES notes:
@@ -51,7 +52,9 @@ Clerk notes:
 - Disable public sign-up in Clerk.
 - Manually provision the one account that should access `/tools`.
 - Keep magic-link email sign-in enabled.
-- Set `AUTHORIZED_EMAILS` to the same email address, so the app also rejects every other signed-in Clerk user.
+- Set `AUTHORIZED_EMAILS` to the same email address, and optionally set
+  `AUTHORIZED_CLERK_USER_IDS` to the Clerk user ID for a more reliable
+  production allowlist. The app rejects every other signed-in Clerk user.
 
 The Dockerfile builds Next.js standalone output and runs `node server.js` on port `80`.
 
