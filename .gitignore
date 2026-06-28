@@ -1,5 +1,14 @@
 __pycache__/
 *.pyc
 .env
+.env*.local
 .venv/
+.next/
+.tmp/
+node_modules/
 output/
+playwright-report/
+test-results/
+next-env.d.ts
+bin/
+obj/

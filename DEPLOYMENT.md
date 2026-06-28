@@ -1,24 +1,23 @@
-# SMGray Deployment
+# smgray.com Deployment
 
-This site is now a small Flask app so it can receive contact-form submissions and send them through Amazon SES.
+This repo is the single Next.js app for the public SMGray website and private tools.
+The contact form sends through Amazon SES, and `/tools` is protected by Clerk.
 
 ## Local Preview
 
 ```powershell
-python -m venv .venv
-.\.venv\Scripts\python -m pip install -r requirements.txt
 $env:CONTACT_DRY_RUN="true"
 $env:CONTACT_TO_EMAIL="to@example.com"
 $env:CONTACT_FROM_EMAIL="from@example.com"
-$env:PORT="8081"
-.\.venv\Scripts\python app.py
+npm install
+npm run dev
 ```
 
-Open `http://localhost:8081`.
+Open `http://localhost:3000`.
 
 ## CapRover / Hetzner
 
-Create a CapRover app for `smgray.com`, deploy this repo, and set these environment variables:
+Deploy `ShaunMike1789/smgray.com` to the CapRover app for `smgray.com`, and set these environment variables:
 
 ```text
 AWS_REGION=us-east-1
@@ -30,6 +29,15 @@ CONTACT_SUBJECT_PREFIX=SMGray contact
 CONTACT_DRY_RUN=false
 CONTACT_RATE_WINDOW_SECONDS=900
 CONTACT_RATE_MAX_ATTEMPTS=5
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=<clerk-publishable-key>
+CLERK_SECRET_KEY=<clerk-secret-key>
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+CLERK_SIGN_IN_URL=/sign-in
+NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL=/tools
+CLERK_SIGN_IN_FALLBACK_REDIRECT_URL=/tools
+NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL=/tools
+CLERK_SIGN_UP_FALLBACK_REDIRECT_URL=/tools
+AUTHORIZED_EMAILS=<your-email-address>
 ```
 
 SES notes:
@@ -38,6 +46,13 @@ SES notes:
 - If the SES account is still in sandbox mode, `CONTACT_TO_EMAIL` must also be verified.
 - Give the IAM user only the permissions needed for `ses:SendEmail`.
 
-The Dockerfile runs gunicorn on port `80`, which matches your existing DashDork/GovRet CapRover pattern.
+Clerk notes:
 
-Production deploys are triggered from CapRover Method 3 using the GitHub push webhook for the `master` branch.
+- Disable public sign-up in Clerk.
+- Manually provision the one account that should access `/tools`.
+- Keep magic-link email sign-in enabled.
+- Set `AUTHORIZED_EMAILS` to the same email address, so the app also rejects every other signed-in Clerk user.
+
+The Dockerfile builds Next.js standalone output and runs `node server.js` on port `80`.
+
+Production deploys are triggered from CapRover Method 3 using the GitHub push webhook for the `master` branch of `ShaunMike1789/smgray.com`.
