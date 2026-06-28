@@ -6,6 +6,7 @@ import { AudioSplitterTool } from "@/components/audio/audio-splitter-tool";
 import { ContentsTxtTool } from "@/components/filesystem/contents-txt-tool";
 import { PlaylistCreatorTool } from "@/components/filesystem/playlist-creator-tool";
 import { ComingSoonPanel } from "@/components/layout/coming-soon-panel";
+import { TorrentSearchTool } from "@/components/search/torrent-search-tool";
 import { ToolReadinessNotice } from "@/components/tools/browser-notice";
 import { ContentCleanupTool } from "@/components/text/content-cleanup-tool";
 import { getToolBySlug, toolRegistry } from "@/lib/tools";
@@ -56,6 +57,8 @@ export default async function ToolPage({
         return <PlaylistCreatorTool />;
       case "audio-splitter":
         return <AudioSplitterTool />;
+      case "torrent-search":
+        return <TorrentSearchTool />;
       default:
         return null;
     }

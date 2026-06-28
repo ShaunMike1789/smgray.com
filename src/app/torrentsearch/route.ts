@@ -1,5 +1,5 @@
-import { legacyStaticResponse } from "@/lib/legacy-static";
+import { redirect } from "next/navigation";
 
 export async function GET() {
-  return legacyStaticResponse("torrentsearch/index.html");
+  redirect("/tools/torrent-search");
 }

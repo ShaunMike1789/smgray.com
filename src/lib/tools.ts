@@ -9,7 +9,8 @@ export type ToolIcon =
   | "cleanup"
   | "crop"
   | "folder"
-  | "playlist";
+  | "playlist"
+  | "search";
 
 export interface ToolDefinition {
   browserSupport: ToolBrowserSupport;
@@ -100,6 +101,21 @@ export const toolRegistry: ToolDefinition[] = [
     requiresFileSystemAccess: false,
     requiresLocalHelper: true,
     route: "/tools/audio-splitter",
+    status: "live",
+  },
+  {
+    id: "torrent-search",
+    slug: "torrent-search",
+    name: "Torrent Search",
+    category: "Search Bench",
+    description:
+      "Build search links across the private torrent indexes and public indexes you already use.",
+    icon: "search",
+    browserSupport: "all",
+    executionMode: "browser",
+    requiresFileSystemAccess: false,
+    requiresLocalHelper: false,
+    route: "/tools/torrent-search",
     status: "live",
   },
 ];

@@ -3,6 +3,7 @@ import {
   FolderCog,
   ListMusic,
   ScanText,
+  Search,
   Crop,
   type LucideProps,
 } from "lucide-react";
@@ -15,6 +16,7 @@ const iconMap = {
   crop: Crop,
   folder: FolderCog,
   playlist: ListMusic,
+  search: Search,
 } satisfies Record<ToolIcon, React.ComponentType<LucideProps>>;
 
 interface ToolIconProps extends LucideProps {
