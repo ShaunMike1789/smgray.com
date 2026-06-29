@@ -1,7 +1,7 @@
 "use client";
 
 import { UserButton } from "@clerk/nextjs";
-import { Menu, MonitorCog, X } from "lucide-react";
+import { LayoutDashboard, Menu, MonitorCog, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -16,6 +16,7 @@ interface ToolShellProps {
 function NavigationContent({ onNavigate }: { onNavigate?: () => void }) {
   const pathname = usePathname();
   const hasClerk = Boolean(process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY);
+  const isToolsHome = pathname === "/tools";
 
   return (
     <>
@@ -41,9 +42,38 @@ function NavigationContent({ onNavigate }: { onNavigate?: () => void }) {
         </p>
       </div>
 
-      <nav className="mt-8 flex-1 space-y-6">
+      <nav className="mt-8 flex-1 space-y-5 overflow-auto pr-1">
+        <Link
+          className={`block rounded-[22px] border px-4 py-4 transition duration-200 ${
+            isToolsHome
+              ? "border-white/18 bg-white/12 text-white shadow-[0_12px_30px_rgba(0,0,0,0.18)]"
+              : "border-white/6 bg-white/[0.03] text-white/72 hover:border-white/12 hover:bg-white/[0.06]"
+          }`}
+          href="/tools"
+          onClick={onNavigate}
+        >
+          <div className="flex items-center gap-3">
+            <div
+              className={`flex size-11 items-center justify-center rounded-[16px] border ${
+                isToolsHome
+                  ? "border-accent/30 bg-accent/18 text-white"
+                  : "border-white/10 bg-white/[0.05] text-white/80"
+              }`}
+            >
+              <LayoutDashboard size={20} strokeWidth={1.9} />
+            </div>
+
+            <div className="min-w-0 flex-1">
+              <p className="text-base font-semibold">Tools Home</p>
+              <p className="mt-1 text-sm leading-5 text-white/55">
+                Pick a tool for the workspace.
+              </p>
+            </div>
+          </div>
+        </Link>
+
         {Object.entries(toolGroups).map(([category, tools]) => (
-          <div key={category} className="space-y-3">
+          <div key={category} className="space-y-2">
             <p className="eyebrow text-white/40">{category}</p>
 
             <div className="space-y-2">
@@ -54,7 +84,7 @@ function NavigationContent({ onNavigate }: { onNavigate?: () => void }) {
                 return (
                   <Link
                     key={tool.id}
-                    className={`block rounded-[24px] border px-4 py-4 transition duration-200 ${
+                    className={`block rounded-[20px] border px-3 py-3 transition duration-200 ${
                       isActive
                         ? "border-white/18 bg-white/12 text-white shadow-[0_12px_30px_rgba(0,0,0,0.18)]"
                         : "border-white/6 bg-white/[0.03] text-white/72 hover:border-white/12 hover:bg-white/[0.06]"
@@ -62,9 +92,9 @@ function NavigationContent({ onNavigate }: { onNavigate?: () => void }) {
                     href={tool.route}
                     onClick={onNavigate}
                   >
-                    <div className="flex items-start gap-3">
+                    <div className="flex items-center gap-3">
                       <div
-                        className={`mt-0.5 flex size-11 items-center justify-center rounded-[16px] border ${
+                        className={`flex size-10 shrink-0 items-center justify-center rounded-[15px] border ${
                           isActive
                             ? "border-accent/30 bg-accent/18 text-white"
                             : "border-white/10 bg-white/[0.05] text-white/80"
@@ -75,7 +105,9 @@ function NavigationContent({ onNavigate }: { onNavigate?: () => void }) {
 
                       <div className="min-w-0 flex-1">
                         <div className="flex items-center justify-between gap-3">
-                          <p className="text-base font-semibold">{tool.name}</p>
+                          <p className="truncate text-base font-semibold">
+                            {tool.name}
+                          </p>
                           <span
                             className={`rounded-full px-2.5 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.28em] ${
                               isLive
@@ -86,10 +118,6 @@ function NavigationContent({ onNavigate }: { onNavigate?: () => void }) {
                             {isLive ? "Live" : "Soon"}
                           </span>
                         </div>
-
-                        <p className="mt-1 text-sm leading-5 text-white/55">
-                          {tool.description}
-                        </p>
                       </div>
                     </div>
                   </Link>
@@ -101,9 +129,9 @@ function NavigationContent({ onNavigate }: { onNavigate?: () => void }) {
       </nav>
 
       <div className="steel-inset rounded-[24px] p-4 text-sm leading-6 text-white/62">
-        Chromium-first local tools and one Windows helper-backed audio bridge
-        keep the bench close to your desktop workflow instead of forcing every
-        task into upload/download loops.
+        Use the menu above to move between tools. The selected tool opens in
+        the workspace on the right, keeping the bench close to your desktop
+        workflow.
       </div>
     </>
   );
